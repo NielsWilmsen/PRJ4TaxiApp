@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16BE6B0A243CBE2200879A7C /* DriverRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */; };
 		16FF45A9243B178000FD4F97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FF45A8243B178000FD4F97 /* AppDelegate.swift */; };
 		16FF45AB243B178000FD4F97 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FF45AA243B178000FD4F97 /* SceneDelegate.swift */; };
 		16FF45AD243B178000FD4F97 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FF45AC243B178000FD4F97 /* LoginViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverRegisterViewController.swift; sourceTree = "<group>"; };
 		16FF45A5243B178000FD4F97 /* TaxiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaxiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16FF45A8243B178000FD4F97 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		16FF45AA243B178000FD4F97 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 		16FF45A7243B178000FD4F97 /* TaxiApp */ = {
 			isa = PBXGroup;
 			children = (
+				16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */,
 				16FF45A8243B178000FD4F97 /* AppDelegate.swift */,
 				16FF45AA243B178000FD4F97 /* SceneDelegate.swift */,
 				16FF45AC243B178000FD4F97 /* LoginViewController.swift */,
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16BE6B0A243CBE2200879A7C /* DriverRegisterViewController.swift in Sources */,
 				16FF45AD243B178000FD4F97 /* LoginViewController.swift in Sources */,
 				16FF45A9243B178000FD4F97 /* AppDelegate.swift in Sources */,
 				16FF45AB243B178000FD4F97 /* SceneDelegate.swift in Sources */,

@@ -26,6 +26,12 @@ class LoginViewController: UIViewController {
         dismissKeyboard()
         let name: String = nameText.text!
         let password: String = passwordText.text!
+        
+        if(name.isEmpty || password.isEmpty){
+            print("Error! Some values are empty")
+            return
+        }
+        
         print("Performing login with name: " + name + ", password: " + password)
         
         // TODO login request to the API
