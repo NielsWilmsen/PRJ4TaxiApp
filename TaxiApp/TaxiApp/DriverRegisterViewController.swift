@@ -1,6 +1,6 @@
 import UIKit
 
-class DriverRegisterViewController: UIViewController {
+class DriverRegisterViewController: UIViewController, Data {
 
     @IBOutlet weak var nameText: UITextField!
     @IBOutlet weak var lastNameText: UITextField!
@@ -8,6 +8,8 @@ class DriverRegisterViewController: UIViewController {
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var brandText: UITextField!
     @IBOutlet weak var modelText: UITextField!
+    @IBOutlet weak var licencePlateText: UITextField!
+    @IBOutlet weak var colorText: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,18 +27,33 @@ class DriverRegisterViewController: UIViewController {
         let password: String = passwordText.text!
         let brand: String = brandText.text!
         let model: String = modelText.text!
+        let color: String = colorText.text!
+        let licencePlate: String = licencePlateText.text!
         
-        if(name.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty || brand.isEmpty || model.isEmpty){
+        if(name.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty || brand.isEmpty || model.isEmpty || color.isEmpty || licencePlate.isEmpty){
             print("Error! Some values are empty")
             return
         }
         
         print("Performing registering with name: " + name + " " + lastName + ", email: " + email + ", password: " + password)
         
-        // TODO register request to the API
+        let restAPI = RestAPI()
+        
+        restAPI.responseData = self
+        
+        let driverParameters = ["first_name": name, "last_name": lastName, "email": email, "password": password] as [String : Any]
+        let carParameters = ["license_plate": licencePlate, "brand": brand, "model": model, "color": color] as [String : Any]
+        
+        restAPI.post(driverParameters, "/drivers")
+        restAPI.post(carParameters, "/cars")
     }
     
     @objc func dismissKeyboard(){
         self.view.endEditing(true)
+    }
+    
+    func parseResponse(_ json: [[String : String]]) {
+        print("---- RESPONSE ----")
+        print(json)
     }
 }

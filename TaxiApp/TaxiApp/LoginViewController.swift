@@ -1,7 +1,10 @@
 import UIKit
 
-class LoginViewController: UIViewController {
-        
+class LoginViewController: UIViewController, Data {
+    
+    var name: String!
+    var password: String!
+    
     // Outlet declaration
     @IBOutlet weak var nameText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
@@ -20,12 +23,12 @@ class LoginViewController: UIViewController {
         
         registerLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(register)))
         forgotPasswordLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(forgotPassword)))
-   }
+    }
     
     @IBAction func login(_ sender: UIButton){
         dismissKeyboard()
-        let name: String = nameText.text!
-        let password: String = passwordText.text!
+        name = nameText.text!
+        password = passwordText.text!
         
         if(name.isEmpty || password.isEmpty){
             print("Error! Some values are empty")
@@ -34,7 +37,11 @@ class LoginViewController: UIViewController {
         
         print("Performing login with name: " + name + ", password: " + password)
         
-        // TODO login request to the API
+        let restAPI = RestAPI()
+        
+        restAPI.responseData = self
+        
+        restAPI.get("/customers")
     }
     
     @objc func register(sender: UITapGestureRecognizer){
@@ -51,5 +58,24 @@ class LoginViewController: UIViewController {
     
     @objc func dismissKeyboard(){
         self.view.endEditing(true)
+    }
+    
+    func parseResponse(_ json: [[String : String]]) {
+        print("---- RESPONSE ----")
+        
+        print(json)
+        
+        for entry in json {
+            if let name = entry["first_name"], let password = entry["password"] {
+                if(match(name, self.name) && match(password, self.password)){
+                    print("Login succes!")
+                }
+            }
+        }
+        
+    }
+    
+    func match(_ a: String, _ b: String) -> Bool{
+        return a == b
     }
 }
