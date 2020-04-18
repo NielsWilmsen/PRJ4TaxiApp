@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		160C9CFD244A006500212123 /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160C9CFC244A006500212123 /* MainPageViewController.swift */; };
 		1613B09324407C7C004C4459 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1613B09224407C7C004C4459 /* Data.swift */; };
 		1613B09424408019004C4459 /* RestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FC211C24407167002C9315 /* RestAPI.swift */; };
 		16BE6B0A243CBE2200879A7C /* DriverRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		160C9CFC244A006500212123 /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		1613B09224407C7C004C4459 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverRegisterViewController.swift; sourceTree = "<group>"; };
 		16FC211A24406A23002C9315 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				16FF45B6243B178200FD4F97 /* Info.plist */,
 				16FF45BC243B25E100FD4F97 /* RegisterViewController.swift */,
 				16FC211A24406A23002C9315 /* ToastView.swift */,
+				160C9CFC244A006500212123 /* MainPageViewController.swift */,
 			);
 			path = TaxiApp;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 				16FF45AB243B178000FD4F97 /* SceneDelegate.swift in Sources */,
 				16FC211B24406A23002C9315 /* ToastView.swift in Sources */,
 				16FF45BD243B25E100FD4F97 /* RegisterViewController.swift in Sources */,
+				160C9CFD244A006500212123 /* MainPageViewController.swift in Sources */,
 				1613B09324407C7C004C4459 /* Data.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

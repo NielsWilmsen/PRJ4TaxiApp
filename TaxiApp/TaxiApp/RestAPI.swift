@@ -10,9 +10,6 @@ class RestAPI {
         //create the url with URL
         let url = URL(string: urlString + endPoint)!
         
-        //create the session object
-        let session = URLSession.shared
-        
         //now create the URLRequest object using the url object
         var request = URLRequest(url: url)
         request.httpMethod = "POST" //set http method as POST
@@ -27,7 +24,7 @@ class RestAPI {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         //create dataTask using the session object to send data to the server
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+        URLSession.shared.dataTask(with: request as URLRequest) { (data, response, error) in
             
             guard error == nil else {
                 return
@@ -37,38 +34,42 @@ class RestAPI {
                 return
             }
             do {
-                //create json object from data
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: String]] {
-                    self.responseData?.parseResponse(json)
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: String] {
+                    let jsonArray: [[String:String]] = [json]
+                    self.responseData?.parseResponse(jsonArray)
                 } else {
-                    print("No bueno")
+                    print("POST ERROR! While trying to parse the reponse!")
                 }
             } catch let error {
                 print(error.localizedDescription)
             }
-        })
-        task.resume()
+        }.resume()
     }
     
     func get(_ endPoint: String){
         
         let myUrl = NSURL(string: urlString + endPoint)!
         URLSession.shared.dataTask(with: myUrl as URL) { (data, response, error) in
-            if error != nil {
-                print(error!)
-            } else {
-                do {
-                    if let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [[String:String]] {
-                        self.responseData?.parseResponse(json)
-                    } else {
-                        print("JSON is not an array of dictionaries")
-                    }
-                } catch let error as NSError {
-                    print(error)
-                }
+            
+            guard error == nil else {
+                return
             }
+            
+            guard let data = data else {
+                return
+            }
+            
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: String]] {
+                    self.responseData?.parseResponse(json)
+                } else {
+                    print("GET ERROR! While trying to parse the reponse!")
+                }
+            } catch let error as NSError {
+                print(error)
+            }
+            
         }.resume()
         
     }
-    
 }

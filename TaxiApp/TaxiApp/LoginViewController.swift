@@ -36,12 +36,16 @@ class LoginViewController: UIViewController, Data {
         }
         
         print("Performing login with name: " + name + ", password: " + password)
-        
+            
         let restAPI = RestAPI()
         
         restAPI.responseData = self
         
-        restAPI.get("/customers")
+        let parameters = ["username" : name!, "password": password!] as [String: Any]
+    
+        // TODO insert correct endpoint
+        
+        restAPI.post(parameters, "/customers/login")
     }
     
     @objc func register(sender: UITapGestureRecognizer){
@@ -65,13 +69,13 @@ class LoginViewController: UIViewController, Data {
         
         print(json)
         
-        for entry in json {
-            if let name = entry["first_name"], let password = entry["password"] {
-                if(match(name, self.name) && match(password, self.password)){
-                    print("Login succes!")
-                }
-            }
-        }
+        // TODO finish the response handeling
+        
+        // If login == ok -> get authentication token and login
+        print("Opening mainscreen view")
+        performSegue(withIdentifier: "login", sender: self)
+        
+        // else give login failed message
         
     }
     
