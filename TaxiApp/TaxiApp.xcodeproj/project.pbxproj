@@ -25,6 +25,7 @@
 		160C9CFC244A006500212123 /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		1613B09224407C7C004C4459 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverRegisterViewController.swift; sourceTree = "<group>"; };
+		16D376D22451DC9A00CF936F /* currentLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = currentLocation.gpx; path = ../../../currentLocation.gpx; sourceTree = "<group>"; };
 		16FC211A24406A23002C9315 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		16FC211C24407167002C9315 /* RestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPI.swift; sourceTree = "<group>"; };
 		16FF45A5243B178000FD4F97 /* TaxiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaxiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +53,7 @@
 		16FF459C243B178000FD4F97 = {
 			isa = PBXGroup;
 			children = (
+				16D376D22451DC9A00CF936F /* currentLocation.gpx */,
 				16FF45A7243B178000FD4F97 /* TaxiApp */,
 				16FF45A6243B178000FD4F97 /* Products */,
 			);
