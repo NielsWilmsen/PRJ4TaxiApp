@@ -1,19 +1,19 @@
 import UIKit
 import MapKit
 
-class MainPageViewController: UIViewController {
+class MainPageViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapKit: MKMapView!
     @IBOutlet weak var welcomeText: UILabel!
     @IBOutlet weak var pickupInput: UITextField!
     @IBOutlet weak var destinationInput: UITextField!
     
-    var matchingItems:[MKMapItem] = []
+    var locations: [CLPlacemark] = []
     
     @IBAction func searchLocation(_ sender: UIButton) {
         
         let pickup: String = pickupInput.text!
-        let destination: String = pickupInput.text!
+        let destination: String = destinationInput.text!
         
         print("Searching for location: " + pickup)
         
@@ -27,60 +27,8 @@ class MainPageViewController: UIViewController {
             return
         }
         
-        DispatchQueue.global(qos: .background).async {
-            
-            let pickupCoordinates: CLLocationCoordinate2D = self.getLocation(pickup)!
-            let destinationCoordinates: CLLocationCoordinate2D = self.getLocation(destination)!
-            
-            let sourcePlacemark = MKPlacemark(coordinate: pickupCoordinates, addressDictionary: nil)
-            let destinationPlacemark = MKPlacemark(coordinate: destinationCoordinates, addressDictionary: nil)
-            
-            let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
-            let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
-            
-            let sourceAnnotation = MKPointAnnotation()
-            sourceAnnotation.title = "Times Square"
-            
-            if let location = sourcePlacemark.location {
-                sourceAnnotation.coordinate = location.coordinate
-            }
-            
-            let destinationAnnotation = MKPointAnnotation()
-            destinationAnnotation.title = "Empire State Building"
-            
-            if let location = destinationPlacemark.location {
-                destinationAnnotation.coordinate = location.coordinate
-            }
-            
-            self.mapKit.showAnnotations([sourceAnnotation,destinationAnnotation], animated: true )
-            
-            let directionRequest = MKDirections.Request()
-            directionRequest.source = sourceMapItem
-            directionRequest.destination = destinationMapItem
-            directionRequest.transportType = .automobile
-            
-            // Calculate the direction
-            let directions = MKDirections(request: directionRequest)
-            
-            // 8.
-            directions.calculate {
-                (response, error) -> Void in
-                
-                guard let response = response else {
-                    if let error = error {
-                        print("Error: \(error)")
-                    }
-                    
-                    return
-                }
-                
-                let route = response.routes[0]
-                self.mapKit.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
-                
-                let rect = route.polyline.boundingMapRect
-                self.mapKit.setRegion(MKCoordinateRegion(rect), animated: true)
-            }
-        }
+        getLocation(pickup)
+        getLocation(destination)
     }
     
     fileprivate let locationManager: CLLocationManager = {
@@ -92,7 +40,7 @@ class MainPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true;
-        
+        mapKit.delegate = self;
         setUpMapView()
     }
     
@@ -114,27 +62,91 @@ class MainPageViewController: UIViewController {
         locationManager.startUpdatingLocation()
     }
     
-    func getLocation(_ input: String) -> CLLocationCoordinate2D? {
+    func getLocation(_ address: String){
         
-        var loc: CLLocationCoordinate2D? = nil
+        let geoCoder = CLGeocoder()
         
-        guard let mapView = mapKit else { return nil}
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = input
-        request.region = mapView.region
-        let search = MKLocalSearch(request: request)
-        search.start { response, _ in
+        print(address)
+        geoCoder.geocodeAddressString(address) { (placemarks, error) in
+            guard
+                let placemarks = placemarks,
+                let location = placemarks.first?.location
+                else {
+                    print("ERROR! No locations found")
+                    return
+            }
+            
+            print(address)
+            self.locations.append(placemarks.first!)
+            self.createRoute(self.locations)
+        }
+        
+    }
+    
+    func createRoute(_ placemarks: [CLPlacemark]) {
+        
+        if (locations.count != 2) { return }
+        
+        let pickupCoordinates: CLLocationCoordinate2D = placemarks[0].location!.coordinate
+        let destinationCoordinates: CLLocationCoordinate2D = placemarks[1].location!.coordinate
+        
+        let sourcePlacemark = MKPlacemark(coordinate: pickupCoordinates, addressDictionary: nil)
+        let destinationPlacemark = MKPlacemark(coordinate: destinationCoordinates, addressDictionary: nil)
+        
+        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+        
+        let sourceAnnotation = MKPointAnnotation()
+        sourceAnnotation.title = placemarks[0].name
+        
+        if let location = sourcePlacemark.location {
+            sourceAnnotation.coordinate = location.coordinate
+        }
+        
+        let destinationAnnotation = MKPointAnnotation()
+        destinationAnnotation.title = placemarks[1].name
+        
+        if let location = destinationPlacemark.location {
+            destinationAnnotation.coordinate = location.coordinate
+        }
+        
+        self.mapKit.showAnnotations([sourceAnnotation,destinationAnnotation], animated: true )
+        
+        let directionRequest = MKDirections.Request()
+        directionRequest.source = sourceMapItem
+        directionRequest.destination = destinationMapItem
+        directionRequest.transportType = .automobile
+        
+        // Calculate the direction
+        let directions = MKDirections(request: directionRequest)
+        
+        // 8.
+        directions.calculate {
+            (response, error) -> Void in
+            
             guard let response = response else {
+                if let error = error {
+                    print("Error: \(error)")
+                }
+                print("Error")
                 return
             }
-            self.matchingItems.append(response.mapItems[0])
             
-            loc = response.mapItems[0].placemark.coordinate
-        }
-        while(loc == nil){
+            let route = response.routes[0]
+            self.mapKit.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
             
+            let rect = route.polyline.boundingMapRect
+            
+            mapKit.setRegion(, animated: <#T##Bool#>)
         }
-        return loc
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = UIColor.red
+        renderer.lineWidth = 4.0
+    
+        return renderer
     }
     
     func getAddress(_ location: CLLocation) -> String {
@@ -156,21 +168,10 @@ class MainPageViewController: UIViewController {
         }
         return address;
     }
-    
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = UIColor.red
-        renderer.lineWidth = 4.0
-        
-        return renderer
-    }
 }
 
 extension MainPageViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        print("jow")
-        
         let location = locations.last! as CLLocation
         let currentLocation = location.coordinate
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, latitudinalMeters: 400, longitudinalMeters: 400)
@@ -191,9 +192,5 @@ extension MainPageViewController: CLLocationManagerDelegate {
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
-        print("sike")
-        
-        locationManager.stopUpdatingLocation()
-        locationManager.startUpdatingLocation()
     }
 }
