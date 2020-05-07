@@ -137,7 +137,13 @@ class MainPageViewController: UIViewController, MKMapViewDelegate {
             
             let rect = route.polyline.boundingMapRect
             
-            mapKit.setRegion(, animated: <#T##Bool#>)
+            let p1: MKMapPoint = MKMapPoint (pickupCoordinates);
+            let p2: MKMapPoint = MKMapPoint (destinationCoordinates);
+
+            // and make a MKMapRect using mins and spans
+            let mapRect: MKMapRect = MKMapRect(x: fmin(p1.x,p2.x) - 100, y: fmin(p1.y,p2.y) - 100, width: fabs(p1.x-p2.x - 1000), height: fabs(p1.y-p2.y - 1000));
+            
+            self.mapKit.setRegion(MKCoordinateRegion(mapRect), animated: true)
         }
     }
     
