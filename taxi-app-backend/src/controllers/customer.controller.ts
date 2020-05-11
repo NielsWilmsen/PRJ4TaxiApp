@@ -21,12 +21,50 @@ import {
 import {logInUtils} from '../utils';
 import {Customer} from '../models';
 import {CustomerRepository} from '../repositories';
+import {Credentials, JWT_SECRET} from '../auth';
+import {HttpErrors} from '@loopback/rest/dist';
+import {promisify} from "util";
+
+const {sign} = require('jsonwebtoken');
+const signAsync = promisify(sign);
 
 export class CustomerController {
   constructor(
     @repository(CustomerRepository)
     public customerRepository : CustomerRepository,
   ) {}
+
+  @post('/customers/login')
+  async login(@requestBody() credentials: Credentials) {
+    if(!credentials.username || !credentials.password){
+      throw new HttpErrors.BadRequest("Missing_Username_Or_Password");
+    }
+    const user = await this.customerRepository.findOne({
+      where: {
+        email: credentials.username
+      }
+    });
+
+    if(!user){
+      throw new HttpErrors.Unauthorized("Email_Not_Found");
+    }
+    const isPasswordMatched = logInUtils.encrypt(user.password, user.getId.length) == credentials.password;
+
+    if(!isPasswordMatched){
+      throw new  HttpErrors.Unauthorized("Invalid_Password");
+    }
+
+    const tokenObject = {username: credentials.username};
+    const token = await signAsync(tokenObject, JWT_SECRET);
+    //0 = user; 1 = driver
+    const {email} = user;
+    return {
+      token,
+      email,
+      //0 = customer; 1 = driver
+      roles: 0,
+    };
+  }
 
   @post('/customers', {
     responses: {

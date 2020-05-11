@@ -1,25 +1,9 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  FilterExcludingWhere,
-  repository,
-  Where,
-} from '@loopback/repository';
-import {
-  post,
-  param,
-  get,
-  getFilterSchemaFor,
-  getModelSchemaRef,
-  getWhereSchemaFor,
-  patch,
-  put,
-  del,
-  requestBody,
-} from '@loopback/rest';
+import {Count, CountSchema, Filter, FilterExcludingWhere, repository, Where} from '@loopback/repository';
+import {del, get, getModelSchemaRef, param, patch, post, put, requestBody} from '@loopback/rest';
 import {Car} from '../models';
 import {CarRepository} from '../repositories';
+import {secured, SecuredType} from '../auth';
+import {asResolutionOptions} from '@loopback/context';
 
 export class CarController {
   constructor(
@@ -49,7 +33,7 @@ export class CarController {
   ): Promise<Car> {
     return this.carRepository.create(car);
   }
-
+  @secured(SecuredType.IS_AUTHENTICATED)
   @get('/cars/count', {
     responses: {
       '200': {
@@ -59,8 +43,10 @@ export class CarController {
     },
   })
   async count(
+    @param.query.string ('access_token') access_token : string,
     @param.where(Car) where?: Where<Car>,
   ): Promise<Count> {
+    console.log(access_token);
     return this.carRepository.count(where);
   }
 
