@@ -11,6 +11,9 @@
 		1613B09324407C7C004C4459 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1613B09224407C7C004C4459 /* Data.swift */; };
 		1613B09424408019004C4459 /* RestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FC211C24407167002C9315 /* RestAPI.swift */; };
 		16BE6B0A243CBE2200879A7C /* DriverRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */; };
+		16D376D424645AAB00CF936F /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D376D324645AAB00CF936F /* Order.swift */; };
+		16D376D624645D3B00CF936F /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D376D524645D3B00CF936F /* Customer.swift */; };
+		16D376D824645F3E00CF936F /* Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D376D724645F3E00CF936F /* Driver.swift */; };
 		16FC211B24406A23002C9315 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FC211A24406A23002C9315 /* ToastView.swift */; };
 		16FF45A9243B178000FD4F97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FF45A8243B178000FD4F97 /* AppDelegate.swift */; };
 		16FF45AB243B178000FD4F97 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FF45AA243B178000FD4F97 /* SceneDelegate.swift */; };
@@ -26,6 +29,9 @@
 		1613B09224407C7C004C4459 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverRegisterViewController.swift; sourceTree = "<group>"; };
 		16D376D22451DC9A00CF936F /* currentLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = currentLocation.gpx; path = ../../../currentLocation.gpx; sourceTree = "<group>"; };
+		16D376D324645AAB00CF936F /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		16D376D524645D3B00CF936F /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		16D376D724645F3E00CF936F /* Driver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
 		16FC211A24406A23002C9315 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		16FC211C24407167002C9315 /* RestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPI.swift; sourceTree = "<group>"; };
 		16FF45A5243B178000FD4F97 /* TaxiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaxiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,6 +76,7 @@
 		16FF45A7243B178000FD4F97 /* TaxiApp */ = {
 			isa = PBXGroup;
 			children = (
+				16D376D324645AAB00CF936F /* Order.swift */,
 				16FC211C24407167002C9315 /* RestAPI.swift */,
 				1613B09224407C7C004C4459 /* Data.swift */,
 				16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */,
@@ -83,6 +90,8 @@
 				16FF45BC243B25E100FD4F97 /* RegisterViewController.swift */,
 				16FC211A24406A23002C9315 /* ToastView.swift */,
 				160C9CFC244A006500212123 /* MainPageViewController.swift */,
+				16D376D524645D3B00CF936F /* Customer.swift */,
+				16D376D724645F3E00CF936F /* Driver.swift */,
 			);
 			path = TaxiApp;
 			sourceTree = "<group>";
@@ -160,10 +169,13 @@
 			files = (
 				1613B09424408019004C4459 /* RestAPI.swift in Sources */,
 				16BE6B0A243CBE2200879A7C /* DriverRegisterViewController.swift in Sources */,
+				16D376D424645AAB00CF936F /* Order.swift in Sources */,
+				16D376D824645F3E00CF936F /* Driver.swift in Sources */,
 				16FF45AD243B178000FD4F97 /* LoginViewController.swift in Sources */,
 				16FF45A9243B178000FD4F97 /* AppDelegate.swift in Sources */,
 				16FF45AB243B178000FD4F97 /* SceneDelegate.swift in Sources */,
 				16FC211B24406A23002C9315 /* ToastView.swift in Sources */,
+				16D376D624645D3B00CF936F /* Customer.swift in Sources */,
 				16FF45BD243B25E100FD4F97 /* RegisterViewController.swift in Sources */,
 				160C9CFD244A006500212123 /* MainPageViewController.swift in Sources */,
 				1613B09324407C7C004C4459 /* Data.swift in Sources */,
