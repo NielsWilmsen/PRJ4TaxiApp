@@ -1,29 +1,11 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  FilterExcludingWhere,
-  repository,
-  Where,
-} from '@loopback/repository';
-import {
-  post,
-  param,
-  get,
-  getFilterSchemaFor,
-  getModelSchemaRef,
-  getWhereSchemaFor,
-  patch,
-  put,
-  del,
-  requestBody,
-} from '@loopback/rest';
+import {Count, CountSchema, Filter, FilterExcludingWhere, repository, Where} from '@loopback/repository';
+import {del, get, getModelSchemaRef, param, patch, post, put, requestBody} from '@loopback/rest';
 import {logInUtils} from '../utils';
 import {Customer} from '../models';
 import {CustomerRepository} from '../repositories';
 import {Credentials, JWT_SECRET} from '../auth';
 import {HttpErrors} from '@loopback/rest/dist';
-import {promisify} from "util";
+import {promisify} from 'util';
 
 const {sign} = require('jsonwebtoken');
 const signAsync = promisify(sign);
@@ -48,7 +30,7 @@ export class CustomerController {
     if(!user){
       throw new HttpErrors.Unauthorized("Email_Not_Found");
     }
-    const isPasswordMatched = logInUtils.encrypt(user.password, user.getId.length) == credentials.password;
+    const isPasswordMatched = logInUtils.encrypt(credentials.password, 5) == user.password;
 
     if(!isPasswordMatched){
       throw new  HttpErrors.Unauthorized("Invalid_Password");
@@ -86,7 +68,7 @@ export class CustomerController {
     })
     customer: Omit<Customer, 'email'>,
   ): Promise<Customer> {
-    customer.password = logInUtils.encrypt(customer.password, customer.getId.length);
+    customer.password = logInUtils.encrypt(customer.password, 5);
     return this.customerRepository.create(customer);
   }
 

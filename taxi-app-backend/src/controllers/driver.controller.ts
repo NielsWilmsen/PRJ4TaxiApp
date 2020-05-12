@@ -1,23 +1,5 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  FilterExcludingWhere,
-  repository,
-  Where,
-} from '@loopback/repository';
-import {
-  post,
-  param,
-  get,
-  getFilterSchemaFor,
-  getModelSchemaRef,
-  getWhereSchemaFor,
-  patch,
-  put,
-  del,
-  requestBody,
-} from '@loopback/rest';
+import {Count, CountSchema, Filter, FilterExcludingWhere, repository, Where} from '@loopback/repository';
+import {del, get, getModelSchemaRef, param, patch, post, put, requestBody} from '@loopback/rest';
 import {logInUtils} from '../utils';
 import {Driver} from '../models';
 import {DriverRepository} from '../repositories';
@@ -48,7 +30,7 @@ export class DriverController {
     if(!user){
       throw new HttpErrors.Unauthorized("Email_Not_Found");
     }
-    const isPasswordMatched = logInUtils.encrypt(user.password, user.getId.length) == credentials.password;
+    const isPasswordMatched = logInUtils.encrypt(credentials.password, 5) == user.password;
 
     if(!isPasswordMatched){
       throw new  HttpErrors.Unauthorized("Invalid_Password");
@@ -86,7 +68,7 @@ export class DriverController {
     })
     driver: Omit<Driver, 'email'>,
   ): Promise<Driver> {
-    driver.password = logInUtils.encrypt(driver.password, driver.getId.length);
+    driver.password = logInUtils.encrypt(driver.password, 5);
     return this.driverRepository.create(driver);
   }
 
