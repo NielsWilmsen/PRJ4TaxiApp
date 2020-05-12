@@ -1,16 +1,14 @@
-
 import Foundation
 import MapKit
 
 class Order {
     
-    var pickup: CLLocation!
-    var destination: CLLocation!
+    var pickup: CLPlacemark!
+    var destination: CLPlacemark!
     var customer: Customer!
     var driver: Driver!
-    var time: Date!
     
-    init(_ pickup: CLLocation, _ destination: CLLocation){
+    init(_ pickup: CLPlacemark, _ destination: CLPlacemark){
         self.pickup = pickup
         self.destination = destination
     }
@@ -18,7 +16,6 @@ class Order {
     func finalize(_ customer: Customer, _ driver: Driver){
         self.customer = customer
         self.driver = driver
-        self.time = Date()
     }
     
 }

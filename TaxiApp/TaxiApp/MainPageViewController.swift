@@ -1,14 +1,23 @@
 import UIKit
 import MapKit
 
-class MainPageViewController: UIViewController, MKMapViewDelegate, Data {
-    
+class MainPageViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapKit: MKMapView!
     @IBOutlet weak var pickupInput: UITextField!
     @IBOutlet weak var welcomeText: UILabel!
     @IBOutlet weak var destinationInput: UITextField!
     
     var locations: [CLPlacemark] = []
+    
+    @IBAction func confirmLocation(_ sender: Any) {
+        performSegue(withIdentifier: "ConfirmLocation", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! ConfirmOrderViewController
+        vc.CLLPickup = locations[0]
+        vc.CLLDestination = locations[1]
+    }
     
     @IBAction func searchLocation(_ sender: UIButton) {
         
@@ -152,21 +161,6 @@ class MainPageViewController: UIViewController, MKMapViewDelegate, Data {
             
             self.mapKit.setRegion(MKCoordinateRegion(mapRect), animated: true)
         }
-        
-        let order = Order(placemarks[0].location!, placemarks[1].location!)
-        
-        let c = Customer("Niels", "Wilmsen", "test@test.com", "12345")
-        let d = Driver("Niels", "Wilmsen", "test@test.com", "12345")
-        
-        order.finalize(c, d)
-        
-        let restAPI = RestAPI()
-        
-        restAPI.responseData = self
-        
-        
-        
-        //restAPI.post("parameters", "/orders")
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -175,26 +169,6 @@ class MainPageViewController: UIViewController, MKMapViewDelegate, Data {
         renderer.lineWidth = 4.0
     
         return renderer
-    }
-    
-    func getAddress(_ location: CLLocation) -> String {
-        var address: String = ""
-        
-        let geoCoder = CLGeocoder()
-        
-        geoCoder.reverseGeocodeLocation(location) { (placemarks, error) in
-            if let error = error {
-                print("Unable to Reverse Geocode Location (\(error))")
-                
-            } else {
-                if let placemarks = placemarks, let placemark = placemarks.first {
-                    address = placemark.name!
-                } else {
-                    print("No Matching Addresses Found")
-                }
-            }
-        }
-        return address;
     }
 }
 
@@ -220,9 +194,5 @@ extension MainPageViewController: CLLocationManagerDelegate {
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
-    }
-    
-    func parseResponse(_ json: [[String : String]]) {
-        
     }
 }

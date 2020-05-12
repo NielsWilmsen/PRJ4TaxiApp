@@ -1,6 +1,6 @@
 import UIKit
 
-class DriverRegisterViewController: UIViewController, Data {
+class DriverRegisterViewController: UIViewController, ResponseHandler {
 
     @IBOutlet weak var nameText: UITextField!
     @IBOutlet weak var lastNameText: UITextField!
@@ -41,8 +41,8 @@ class DriverRegisterViewController: UIViewController, Data {
         
         restAPI.responseData = self
         
-        let driverParameters = ["first_name": name, "last_name": lastName, "email": email, "password": password] as [String : Any]
-        let carParameters = ["license_plate": licencePlate, "brand": brand, "model": model, "color": color] as [String : Any]
+        let driverParameters = ["first_name": name, "last_name": lastName, "email": email, "password": password] as [String : String]
+        let carParameters = ["license_plate": licencePlate, "brand": brand, "model": model, "color": color] as [String : String]
         
         restAPI.post(driverParameters, "/drivers")
         restAPI.post(carParameters, "/cars")
@@ -52,8 +52,11 @@ class DriverRegisterViewController: UIViewController, Data {
         self.view.endEditing(true)
     }
     
-    func parseResponse(_ json: [[String : String]]) {
-        print("---- RESPONSE ----")
-        print(json)
+    func onSuccess(_ response: Data) {
+        print("---- SUCCESS ----")
+    }
+    
+    func onFailure(_ response: Data) {
+        print("---- FAILURE ----")
     }
 }

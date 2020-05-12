@@ -1,5 +1,5 @@
 import Foundation
 
-protocol Data {
-    func parseResponse(_ json: [[String: String]])
+protocol responseHandler {
+    func parseResponse(_ response: responseHandler)
 }

@@ -1,6 +1,6 @@
 import UIKit
 
-class RegisterViewController: UIViewController, Data {
+class RegisterViewController: UIViewController, ResponseHandler {
     
     // Outlet declaration
     @IBOutlet weak var nameText: UITextField!
@@ -43,7 +43,7 @@ class RegisterViewController: UIViewController, Data {
         
         restAPI.responseData = self
         
-        let parameters = ["first_name": name, "last_name": lastName, "email": email, "password": password] as [String : Any]
+        let parameters = ["first_name": name, "last_name": lastName, "email": email, "password": password] as [String : String]
         
         restAPI.post(parameters, "/customers")
     }
@@ -56,8 +56,12 @@ class RegisterViewController: UIViewController, Data {
         performSegue(withIdentifier: "driverRegister", sender: self)
     }
     
-    func parseResponse(_ json: [[String : String]]) {
-        print("---- RESPONSE ----")
-        print(json)
+    func onSuccess(_ response: Data) {
+        print("---- SUCCESS ----")
+    }
+    
+    func onFailure(_ response: Data) {
+        print("---- FAILURE ----")
+        
     }
 }

@@ -1,6 +1,6 @@
 import UIKit
 
-class LoginViewController: UIViewController, Data {
+class LoginViewController: UIViewController, ResponseHandler {
     
     var name: String!
     var password: String!
@@ -41,9 +41,7 @@ class LoginViewController: UIViewController, Data {
         
         restAPI.responseData = self
         
-        let parameters = ["username" : name!, "password": password!] as [String: Any]
-    
-        // TODO insert correct endpoint
+        let parameters = ["username": name, "password": password] as [String: String]
         
         restAPI.post(parameters, "/customers/login")
     }
@@ -64,19 +62,13 @@ class LoginViewController: UIViewController, Data {
         self.view.endEditing(true)
     }
     
-    func parseResponse(_ json: [[String : String]]) {
-        print("---- RESPONSE ----")
-        
-        print(json)
-        
-        // TODO finish the response handeling
-        
-        // If login == ok -> get authentication token and login
-        print("Opening mainscreen view")
-        performSegue(withIdentifier: "login", sender: self)
-        
-        // else give login failed message
-        
+    func onSuccess(_ response: Data) {
+        print("---- SUCCESS ----")
+        performSegue(withIdentifier: "Login", sender: self)
+    }
+    
+    func onFailure(_ response: Data) {
+        print("---- FAILURE ----")
     }
     
     func match(_ a: String, _ b: String) -> Bool{
