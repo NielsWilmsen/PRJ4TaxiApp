@@ -62,12 +62,15 @@ class LoginViewController: UIViewController, ResponseHandler {
         self.view.endEditing(true)
     }
     
-    func onSuccess(_ response: Data) {
+    func onSuccess(_ response: NSDictionary) {
         print("---- SUCCESS ----")
-        performSegue(withIdentifier: "Login", sender: self)
+        
+        let authToken = response.object(forKey: "token")
+        
+        performSegue(withIdentifier: "CustomerLogin", sender: self)
     }
     
-    func onFailure(_ response: Data) {
+    func onFailure(_ response: NSDictionary) {
         print("---- FAILURE ----")
     }
     

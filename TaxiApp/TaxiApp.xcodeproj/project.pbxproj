@@ -60,6 +60,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		16545165246ADDC8002914D9 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				16D376D324645AAB00CF936F /* Order.swift */,
+				16D376D524645D3B00CF936F /* Customer.swift */,
+				16D376D724645F3E00CF936F /* Driver.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		16545166246ADDD4002914D9 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				16D376D9246A90B400CF936F /* ConfirmOrderViewController.swift */,
+				16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */,
+				16FF45AC243B178000FD4F97 /* LoginViewController.swift */,
+				16FF45BC243B25E100FD4F97 /* RegisterViewController.swift */,
+				160C9CFC244A006500212123 /* MainPageViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		16545167246ADDE0002914D9 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				1613B09224407C7C004C4459 /* ResponseHandler.swift */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		16545168246ADDE8002914D9 /* Connections */ = {
+			isa = PBXGroup;
+			children = (
+				16FC211C24407167002C9315 /* RestAPI.swift */,
+			);
+			path = Connections;
+			sourceTree = "<group>";
+		};
 		16FF459C243B178000FD4F97 = {
 			isa = PBXGroup;
 			children = (
@@ -80,23 +118,17 @@
 		16FF45A7243B178000FD4F97 /* TaxiApp */ = {
 			isa = PBXGroup;
 			children = (
-				16D376D9246A90B400CF936F /* ConfirmOrderViewController.swift */,
-				16D376D324645AAB00CF936F /* Order.swift */,
-				16FC211C24407167002C9315 /* RestAPI.swift */,
-				1613B09224407C7C004C4459 /* ResponseHandler.swift */,
-				16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */,
+				16545168246ADDE8002914D9 /* Connections */,
+				16545167246ADDE0002914D9 /* Interfaces */,
+				16545166246ADDD4002914D9 /* ViewControllers */,
+				16545165246ADDC8002914D9 /* Classes */,
 				16FF45A8243B178000FD4F97 /* AppDelegate.swift */,
 				16FF45AA243B178000FD4F97 /* SceneDelegate.swift */,
-				16FF45AC243B178000FD4F97 /* LoginViewController.swift */,
 				16FF45AE243B178000FD4F97 /* Main.storyboard */,
 				16FF45B1243B178200FD4F97 /* Assets.xcassets */,
 				16FF45B3243B178200FD4F97 /* LaunchScreen.storyboard */,
 				16FF45B6243B178200FD4F97 /* Info.plist */,
-				16FF45BC243B25E100FD4F97 /* RegisterViewController.swift */,
 				16FC211A24406A23002C9315 /* ToastView.swift */,
-				160C9CFC244A006500212123 /* MainPageViewController.swift */,
-				16D376D524645D3B00CF936F /* Customer.swift */,
-				16D376D724645F3E00CF936F /* Driver.swift */,
 			);
 			path = TaxiApp;
 			sourceTree = "<group>";

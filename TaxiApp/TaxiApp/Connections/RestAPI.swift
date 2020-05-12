@@ -16,9 +16,9 @@ class RestAPI {
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 switch response.result {
-                case .success:
+                case .success(let JSON):
                     print("Post request Successful")
-                    self.responseData?.onSuccess(response.data!)
+                    self.responseData?.onSuccess(JSON as! NSDictionary)
                 case let .failure(error):
                     print(error)
                 }

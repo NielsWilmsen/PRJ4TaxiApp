@@ -52,11 +52,11 @@ class DriverRegisterViewController: UIViewController, ResponseHandler {
         self.view.endEditing(true)
     }
     
-    func onSuccess(_ response: Data) {
+    func onSuccess(_ response: NSDictionary) {
         print("---- SUCCESS ----")
     }
     
-    func onFailure(_ response: Data) {
+    func onFailure(_ response: NSDictionary) {
         print("---- FAILURE ----")
     }
 }
