@@ -1,11 +1,11 @@
 import UIKit
 import MapKit
 
-class MainPageViewController: UIViewController, MKMapViewDelegate {
+class MainPageViewController: UIViewController, MKMapViewDelegate, Data {
     
     @IBOutlet weak var mapKit: MKMapView!
-    @IBOutlet weak var welcomeText: UILabel!
     @IBOutlet weak var pickupInput: UITextField!
+    @IBOutlet weak var welcomeText: UILabel!
     @IBOutlet weak var destinationInput: UITextField!
     
     var locations: [CLPlacemark] = []
@@ -39,9 +39,16 @@ class MainPageViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard)))
+        
         self.navigationItem.hidesBackButton = true;
         mapKit.delegate = self;
         setUpMapView()
+    }
+    
+    @objc func dismissKeyboard(){
+        self.view.endEditing(true)
     }
     
     func setUpMapView() {
@@ -145,6 +152,21 @@ class MainPageViewController: UIViewController, MKMapViewDelegate {
             
             self.mapKit.setRegion(MKCoordinateRegion(mapRect), animated: true)
         }
+        
+        let order = Order(placemarks[0].location!, placemarks[1].location!)
+        
+        let c = Customer("Niels", "Wilmsen", "test@test.com", "12345")
+        let d = Driver("Niels", "Wilmsen", "test@test.com", "12345")
+        
+        order.finalize(c, d)
+        
+        let restAPI = RestAPI()
+        
+        restAPI.responseData = self
+        
+        
+        
+        //restAPI.post("parameters", "/orders")
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -198,5 +220,9 @@ extension MainPageViewController: CLLocationManagerDelegate {
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
+    }
+    
+    func parseResponse(_ json: [[String : String]]) {
+        
     }
 }
