@@ -19,10 +19,10 @@ class ConfirmOrderViewController: UIViewController, ResponseHandler {
     @IBAction func confirmOrder(_ sender: Any) {
         let order = Order(CLLPickup, CLLDestination)
         
-        let c = Customer("Niels", "Wilmsen", "test@test.com", "12345")
-        let d = Driver("Niels", "Wilmsen", "test@test.com", "12345")
+        //let c = Customer("Niels", "Wilmsen", "test@test.com", "12345")
+        //let d = Driver("Niels", "Wilmsen", "test@test.com", "12345")
         
-        order.finalize(c, d)
+        //order.finalize(c, d)
         
         let restAPI = RestAPI()
         

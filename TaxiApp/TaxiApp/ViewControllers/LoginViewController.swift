@@ -5,6 +5,11 @@ class LoginViewController: UIViewController, ResponseHandler {
     var name: String!
     var password: String!
     
+    var selectedUser: String = "customer"
+    
+    var authToken: String!
+    var userEmail: String!
+    
     // Outlet declaration
     @IBOutlet weak var nameText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
@@ -43,7 +48,7 @@ class LoginViewController: UIViewController, ResponseHandler {
         
         let parameters = ["username": name, "password": password] as [String: String]
         
-        restAPI.post(parameters, "/customers/login")
+        restAPI.post(parameters, "/" + selectedUser + "s/login")
     }
     
     @objc func register(sender: UITapGestureRecognizer){
@@ -62,12 +67,34 @@ class LoginViewController: UIViewController, ResponseHandler {
         self.view.endEditing(true)
     }
     
+    @IBAction func changeUser(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex{
+        case 0:
+            selectedUser = "customer"
+        case 1:
+            selectedUser = "driver"
+        default:
+            selectedUser = "customer"
+        }
+    }
+    
     func onSuccess(_ response: NSDictionary) {
         print("---- SUCCESS ----")
         
-        let authToken = response.object(forKey: "token")
-        
-        performSegue(withIdentifier: "CustomerLogin", sender: self)
+        authToken = response.object(forKey: "token") as? String
+        userEmail = response.object(forKey: "email") as? String
+                
+        if(selectedUser.elementsEqual("customer")){
+            performSegue(withIdentifier: "CustomerLogin", sender: self)
+        } else if (selectedUser.elementsEqual("driver")){
+            performSegue(withIdentifier: "DriverLogin", sender: self)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! MainPageViewController
+        vc.authToken = self.authToken
+        vc.authToken = self.authToken
     }
     
     func onFailure(_ response: NSDictionary) {

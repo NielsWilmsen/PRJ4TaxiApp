@@ -1,13 +1,17 @@
 import UIKit
 import MapKit
 
-class MainPageViewController: UIViewController, MKMapViewDelegate {
+class MainPageViewController: UIViewController, MKMapViewDelegate, ResponseHandler {
+    
     @IBOutlet weak var mapKit: MKMapView!
     @IBOutlet weak var pickupInput: UITextField!
     @IBOutlet weak var welcomeText: UILabel!
     @IBOutlet weak var destinationInput: UITextField!
     
     var locations: [CLPlacemark] = []
+    
+    var authToken: String!
+    var userEmail: String!
     
     @IBAction func confirmLocation(_ sender: Any) {
         performSegue(withIdentifier: "ConfirmLocation", sender: self)
@@ -54,6 +58,7 @@ class MainPageViewController: UIViewController, MKMapViewDelegate {
         self.navigationItem.hidesBackButton = true;
         mapKit.delegate = self;
         setUpMapView()
+        createUser()
     }
     
     @objc func dismissKeyboard(){
@@ -169,6 +174,22 @@ class MainPageViewController: UIViewController, MKMapViewDelegate {
         renderer.lineWidth = 4.0
     
         return renderer
+    }
+    
+    func createUser(){
+        let restAPI = RestAPI()
+        
+        restAPI.responseData = self
+        
+        restAPI.get(authToken, "/customers")
+    }
+    
+    func onSuccess(_ response: NSDictionary) {
+        print(response)
+    }
+    
+    func onFailure(_ response: NSDictionary) {
+        
     }
 }
 
