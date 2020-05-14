@@ -53,7 +53,7 @@ class LoginViewController: UIViewController, ResponseHandler {
     
     @objc func register(sender: UITapGestureRecognizer){
         print("Opening register view")
-        performSegue(withIdentifier: "register", sender: self)
+        performSegue(withIdentifier: "Register", sender: self)
     }
     
     @objc func forgotPassword(sender:
@@ -92,9 +92,18 @@ class LoginViewController: UIViewController, ResponseHandler {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as! MainPageViewController
-        vc.authToken = self.authToken
-        vc.authToken = self.authToken
+        
+        switch segue.identifier {
+        case "CustomerLogin":
+            let vc = segue.destination as! MainPageViewController
+            vc.authToken = self.authToken
+            vc.authToken = self.authToken
+        case "Register":
+            let vc = segue.destination as! RegisterViewController
+            
+        default:
+            break
+        }
     }
     
     func onFailure(_ response: NSDictionary) {

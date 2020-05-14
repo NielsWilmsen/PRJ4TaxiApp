@@ -101,7 +101,7 @@
                         <outlet property="nameText" destination="q17-mf-gPe" id="HJu-V3-Srw"/>
                         <outlet property="passwordText" destination="vrx-MQ-6wz" id="tXr-1p-KWX"/>
                         <outlet property="registerLabel" destination="EKF-Ae-o0x" id="FPw-m8-4Jc"/>
-                        <segue destination="YIb-IK-7qg" kind="show" identifier="register" id="cN9-Kv-RLg"/>
+                        <segue destination="YIb-IK-7qg" kind="show" identifier="Register" id="cN9-Kv-RLg"/>
                         <segue destination="2cm-D6-nbQ" kind="show" identifier="CustomerLogin" id="GKU-is-u2q"/>
                         <segue destination="k8F-5n-RMB" kind="show" identifier="DriverLogin" id="cmK-cP-iqi"/>
                     </connections>
@@ -309,7 +309,7 @@
                                 <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="17"/>
                                 <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <state key="normal" title="Submit"/>
+                                <state key="normal" title="Search"/>
                                 <connections>
                                     <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dGY-KM-PBH"/>
                                     <action selector="searchLocation:" destination="2cm-D6-nbQ" eventType="touchUpInside" id="b1T-MD-SBl"/>
