@@ -1,13 +1,12 @@
 import UIKit
 
-class RegisterViewController: UIViewController, ResponseHandler {
+class CustomerRegisterViewController: UIViewController, ResponseHandler {
     
     // Outlet declaration
     @IBOutlet weak var nameText: UITextField!
     @IBOutlet weak var lastNameText: UITextField!
     @IBOutlet weak var emailText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
-    @IBOutlet weak var driverRegister: UILabel!
     
     let restAPI = RestAPI()
     
@@ -16,10 +15,6 @@ class RegisterViewController: UIViewController, ResponseHandler {
         
         // Dismiss the keyboard when a user taps anywhere
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard)))
-        
-        driverRegister.isUserInteractionEnabled = true
-        
-        driverRegister.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dRegister)))
     }
     
     @IBAction func register(_ sender: UIButton) {

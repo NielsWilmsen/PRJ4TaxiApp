@@ -1,7 +1,7 @@
 import UIKit
 import MapKit
 
-class MainPageViewController: UIViewController, MKMapViewDelegate, ResponseHandler {
+class CustomerMainPageViewController: UIViewController, MKMapViewDelegate, ResponseHandler {
     
     @IBOutlet weak var mapKit: MKMapView!
     @IBOutlet weak var pickupInput: UITextField!
@@ -58,7 +58,10 @@ class MainPageViewController: UIViewController, MKMapViewDelegate, ResponseHandl
         self.navigationItem.hidesBackButton = true;
         mapKit.delegate = self;
         setUpMapView()
-        createUser()
+        
+        if(userEmail != nil && authToken != nil){
+            createUser()
+        }
     }
     
     @objc func dismissKeyboard(){
@@ -181,11 +184,23 @@ class MainPageViewController: UIViewController, MKMapViewDelegate, ResponseHandl
         
         restAPI.responseData = self
         
-        restAPI.get(authToken, "/customers")
+        restAPI.get(authToken, "/customers/" + userEmail)
     }
     
     func onSuccess(_ response: NSDictionary) {
-        print(response)
+        
+        let firstName: String = response.value(forKey: "first_name") as! String
+        let lastName: String = response.value(forKey: "last_name") as! String
+        let password: String = response.value(forKey: "password") as! String
+        
+        let customer = Customer(firstName, lastName, userEmail, password, authToken)
+        
+        Customer.store(customer)
+    }
+    
+    @IBAction func Logout(_ sender: Any) {
+        User.delete()
+        self.dismiss(animated: true)
     }
     
     func onFailure(_ response: NSDictionary) {
@@ -193,7 +208,7 @@ class MainPageViewController: UIViewController, MKMapViewDelegate, ResponseHandl
     }
 }
 
-extension MainPageViewController: CLLocationManagerDelegate {
+extension CustomerMainPageViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.last! as CLLocation
         let currentLocation = location.coordinate

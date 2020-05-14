@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		160C9CFD244A006500212123 /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160C9CFC244A006500212123 /* MainPageViewController.swift */; };
+		160C9CFD244A006500212123 /* CustomerMainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160C9CFC244A006500212123 /* CustomerMainPageViewController.swift */; };
 		1613B09324407C7C004C4459 /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1613B09224407C7C004C4459 /* ResponseHandler.swift */; };
 		1613B09424408019004C4459 /* RestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FC211C24407167002C9315 /* RestAPI.swift */; };
 		16545164246ABD67002914D9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 16545163246ABD67002914D9 /* Alamofire */; };
 		1654516A246ADEAE002914D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16545169246ADEAE002914D9 /* User.swift */; };
+		1654516C246D77EC002914D9 /* DriverMainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654516B246D77EC002914D9 /* DriverMainScreenViewController.swift */; };
+		1654516E246DAA7A002914D9 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654516D246DAA7A002914D9 /* SplashViewController.swift */; };
 		16BE6B0A243CBE2200879A7C /* DriverRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */; };
 		16D376D424645AAB00CF936F /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D376D324645AAB00CF936F /* Order.swift */; };
 		16D376D624645D3B00CF936F /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D376D524645D3B00CF936F /* Customer.swift */; };
@@ -19,18 +21,19 @@
 		16D376DA246A90B400CF936F /* ConfirmOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D376D9246A90B400CF936F /* ConfirmOrderViewController.swift */; };
 		16FC211B24406A23002C9315 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FC211A24406A23002C9315 /* ToastView.swift */; };
 		16FF45A9243B178000FD4F97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FF45A8243B178000FD4F97 /* AppDelegate.swift */; };
-		16FF45AB243B178000FD4F97 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FF45AA243B178000FD4F97 /* SceneDelegate.swift */; };
 		16FF45AD243B178000FD4F97 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FF45AC243B178000FD4F97 /* LoginViewController.swift */; };
 		16FF45B0243B178000FD4F97 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16FF45AE243B178000FD4F97 /* Main.storyboard */; };
 		16FF45B2243B178200FD4F97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16FF45B1243B178200FD4F97 /* Assets.xcassets */; };
 		16FF45B5243B178200FD4F97 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16FF45B3243B178200FD4F97 /* LaunchScreen.storyboard */; };
-		16FF45BD243B25E100FD4F97 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FF45BC243B25E100FD4F97 /* RegisterViewController.swift */; };
+		16FF45BD243B25E100FD4F97 /* CustomerRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FF45BC243B25E100FD4F97 /* CustomerRegisterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		160C9CFC244A006500212123 /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
+		160C9CFC244A006500212123 /* CustomerMainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerMainPageViewController.swift; sourceTree = "<group>"; };
 		1613B09224407C7C004C4459 /* ResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHandler.swift; sourceTree = "<group>"; };
 		16545169246ADEAE002914D9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		1654516B246D77EC002914D9 /* DriverMainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverMainScreenViewController.swift; sourceTree = "<group>"; };
+		1654516D246DAA7A002914D9 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverRegisterViewController.swift; sourceTree = "<group>"; };
 		16D376D22451DC9A00CF936F /* currentLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = currentLocation.gpx; path = ../../../currentLocation.gpx; sourceTree = "<group>"; };
 		16D376D324645AAB00CF936F /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
@@ -41,13 +44,12 @@
 		16FC211C24407167002C9315 /* RestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPI.swift; sourceTree = "<group>"; };
 		16FF45A5243B178000FD4F97 /* TaxiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaxiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16FF45A8243B178000FD4F97 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		16FF45AA243B178000FD4F97 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		16FF45AC243B178000FD4F97 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		16FF45AF243B178000FD4F97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		16FF45B1243B178200FD4F97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		16FF45B4243B178200FD4F97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		16FF45B6243B178200FD4F97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		16FF45BC243B25E100FD4F97 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		16FF45BC243B25E100FD4F97 /* CustomerRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerRegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,8 +81,10 @@
 				16D376D9246A90B400CF936F /* ConfirmOrderViewController.swift */,
 				16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */,
 				16FF45AC243B178000FD4F97 /* LoginViewController.swift */,
-				16FF45BC243B25E100FD4F97 /* RegisterViewController.swift */,
-				160C9CFC244A006500212123 /* MainPageViewController.swift */,
+				16FF45BC243B25E100FD4F97 /* CustomerRegisterViewController.swift */,
+				160C9CFC244A006500212123 /* CustomerMainPageViewController.swift */,
+				1654516B246D77EC002914D9 /* DriverMainScreenViewController.swift */,
+				1654516D246DAA7A002914D9 /* SplashViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -126,7 +130,6 @@
 				16545166246ADDD4002914D9 /* ViewControllers */,
 				16545165246ADDC8002914D9 /* Classes */,
 				16FF45A8243B178000FD4F97 /* AppDelegate.swift */,
-				16FF45AA243B178000FD4F97 /* SceneDelegate.swift */,
 				16FF45AE243B178000FD4F97 /* Main.storyboard */,
 				16FF45B1243B178200FD4F97 /* Assets.xcassets */,
 				16FF45B3243B178200FD4F97 /* LaunchScreen.storyboard */,
@@ -220,12 +223,13 @@
 				16FF45AD243B178000FD4F97 /* LoginViewController.swift in Sources */,
 				16FF45A9243B178000FD4F97 /* AppDelegate.swift in Sources */,
 				1654516A246ADEAE002914D9 /* User.swift in Sources */,
-				16FF45AB243B178000FD4F97 /* SceneDelegate.swift in Sources */,
 				16FC211B24406A23002C9315 /* ToastView.swift in Sources */,
 				16D376D624645D3B00CF936F /* Customer.swift in Sources */,
-				16FF45BD243B25E100FD4F97 /* RegisterViewController.swift in Sources */,
-				160C9CFD244A006500212123 /* MainPageViewController.swift in Sources */,
+				1654516E246DAA7A002914D9 /* SplashViewController.swift in Sources */,
+				16FF45BD243B25E100FD4F97 /* CustomerRegisterViewController.swift in Sources */,
+				160C9CFD244A006500212123 /* CustomerMainPageViewController.swift in Sources */,
 				16D376DA246A90B400CF936F /* ConfirmOrderViewController.swift in Sources */,
+				1654516C246D77EC002914D9 /* DriverMainScreenViewController.swift in Sources */,
 				1613B09324407C7C004C4459 /* ResponseHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

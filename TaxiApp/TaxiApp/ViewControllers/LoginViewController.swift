@@ -5,7 +5,7 @@ class LoginViewController: UIViewController, ResponseHandler {
     var name: String!
     var password: String!
     
-    var selectedUser: String = "customer"
+    var selectedUser = userType.CUSTOMER
     
     var authToken: String!
     var userEmail: String!
@@ -48,12 +48,13 @@ class LoginViewController: UIViewController, ResponseHandler {
         
         let parameters = ["username": name, "password": password] as [String: String]
         
-        restAPI.post(parameters, "/" + selectedUser + "s/login")
+        restAPI.post(parameters, "/" + selectedUser.rawValue.lowercased() + "s/login")
     }
     
     @objc func register(sender: UITapGestureRecognizer){
-        print("Opening register view")
-        performSegue(withIdentifier: "Register", sender: self)
+        print("Opening " + selectedUser.rawValue + " register view")
+
+        performSegue(withIdentifier: selectedUser.rawValue + "Register", sender: self)
     }
     
     @objc func forgotPassword(sender:
@@ -70,11 +71,11 @@ class LoginViewController: UIViewController, ResponseHandler {
     @IBAction func changeUser(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex{
         case 0:
-            selectedUser = "customer"
+            selectedUser = userType.CUSTOMER
         case 1:
-            selectedUser = "driver"
+            selectedUser = userType.DRIVER
         default:
-            selectedUser = "customer"
+            selectedUser = userType.CUSTOMER
         }
     }
     
@@ -84,22 +85,18 @@ class LoginViewController: UIViewController, ResponseHandler {
         authToken = response.object(forKey: "token") as? String
         userEmail = response.object(forKey: "email") as? String
                 
-        if(selectedUser.elementsEqual("customer")){
-            performSegue(withIdentifier: "CustomerLogin", sender: self)
-        } else if (selectedUser.elementsEqual("driver")){
-            performSegue(withIdentifier: "DriverLogin", sender: self)
-        }
+        performSegue(withIdentifier: selectedUser.rawValue + "Login", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         switch segue.identifier {
         case "CustomerLogin":
-            let vc = segue.destination as! MainPageViewController
+            let vc = segue.destination as! CustomerMainPageViewController
             vc.authToken = self.authToken
-            vc.authToken = self.authToken
-        case "Register":
-            let vc = segue.destination as! RegisterViewController
+            vc.userEmail = self.userEmail
+        case "DriverLogin":
+            let vc = segue.destination as! DriverMainScreenViewController
             
         default:
             break
@@ -113,4 +110,9 @@ class LoginViewController: UIViewController, ResponseHandler {
     func match(_ a: String, _ b: String) -> Bool{
         return a == b
     }
+}
+
+enum userType: String {
+    case CUSTOMER = "Customer"
+    case DRIVER = "Driver"
 }

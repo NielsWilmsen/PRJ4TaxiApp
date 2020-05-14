@@ -17,7 +17,7 @@ class RestAPI {
             .responseJSON { response in
                 switch response.result {
                 case .success(let JSON):
-                    print("Post request Successful")
+                    print("Post request successful")
                     self.responseData?.onSuccess(JSON as! NSDictionary)
                 case let .failure(error):
                     print(error)
@@ -33,8 +33,8 @@ class RestAPI {
             .responseJSON { response in
                 switch response.result {
                 case .success(let JSON):
-                    print("Get success")
-                    //self.responseData?.onSuccess(JSON as! NSDictionary)
+                    print("Get request successful")
+                    self.responseData?.onSuccess(JSON as! NSDictionary)
                 case let .failure(error):
                     print(error)
                 }
