@@ -23,9 +23,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This Application Use your current location</string>
+	<string>This Application uses your current location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This Application Use your current location</string>
+	<string>This Application uses your current location</string>
 	<key>NSlocation</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>
@@ -41,6 +41,10 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>Privacy - Camera Usage Description”</key>
+	<string>This application will access your camera</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This application uses the taken photo only in the means of your profile</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
