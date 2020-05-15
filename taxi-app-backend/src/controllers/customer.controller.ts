@@ -1,11 +1,23 @@
 import {Count, CountSchema, Filter, FilterExcludingWhere, repository, Where} from '@loopback/repository';
-import {del, get, getModelSchemaRef, param, patch, post, put, requestBody} from '@loopback/rest';
+import {
+  del,
+  get,
+  getModelSchemaRef,
+  param,
+  patch,
+  post,
+  put, Request,
+  requestBody,
+  Response,
+  RestBindings,
+} from '@loopback/rest';
 import {logInUtils} from '../utils';
 import {Customer} from '../models';
 import {CustomerRepository} from '../repositories';
 import {Credentials, JWT_SECRET} from '../auth';
 import {HttpErrors} from '@loopback/rest/dist';
 import {promisify} from 'util';
+import {inject} from '@loopback/context';
 
 const {sign} = require('jsonwebtoken');
 const signAsync = promisify(sign);
@@ -194,3 +206,4 @@ export class CustomerController {
     await this.customerRepository.deleteById(id);
   }
 }
+

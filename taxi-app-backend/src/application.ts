@@ -14,6 +14,8 @@ import {MyAuthMetadataProvider,
         MyAuthAuthenticationStrategyProvider,
         MyAuthActionProvider,
         MyAuthBindings} from './auth';
+import multer from 'multer';
+import {FILE_UPLOAD_SERVICE, STORAGE_DIRECTORY} from './keys';
 
 export class TaxiApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
@@ -33,6 +35,10 @@ export class TaxiApplication extends BootMixin(
     });
     this.component(RestExplorerComponent);
 
+    // Configure file upload with multer options
+    //NEW
+    this.configureFileUpload(options.fileStorageDirectory);
+
     this . bind( AuthenticationBindings .METADATA) . toProvider (MyAuthMetadataProvider) ;
     this . bind(MyAuthBindings .STRATEGY) . toProvider (MyAuthAuthenticationStrategyProvider) ;
     this . bind( AuthenticationBindings .AUTH_ACTION) . toProvider (MyAuthActionProvider) ;
@@ -47,5 +53,25 @@ export class TaxiApplication extends BootMixin(
         nested: true,
       },
     };
+  }
+
+  /**
+   * Configure `multer` options for file upload - NEW
+   */
+  protected configureFileUpload(destination?: string) {
+    // Upload files to `dist/.sandbox` by default
+    destination = destination ?? path.join(__dirname, '../uploads');
+    this.bind(STORAGE_DIRECTORY).to(destination);
+    const multerOptions: multer.Options = {
+      storage: multer.diskStorage({
+        destination,
+        // Use the original file name as is
+        filename: (req, file, cb) => {
+          cb(null, file.originalname);
+        },
+      }),
+    };
+    // Configure the file upload service with multer options
+    this.configure(FILE_UPLOAD_SERVICE).to(multerOptions);
   }
 }

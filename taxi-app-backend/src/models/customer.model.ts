@@ -1,6 +1,5 @@
 import {Entity, model, property, hasMany} from '@loopback/repository';
 import {Order} from './order.model';
-
 @model()
 export class Customer extends Entity {
   @property({
@@ -27,6 +26,11 @@ export class Customer extends Entity {
     required: true,
   })
   password: string;
+
+  @property({
+    type: 'string',
+  })
+  profile_picture_path: string;
 
   @hasMany(() => Order, {keyTo: 'customer_email'})
   customerOrders: Order[];
