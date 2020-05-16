@@ -1,23 +1,11 @@
 import {Count, CountSchema, Filter, FilterExcludingWhere, repository, Where} from '@loopback/repository';
-import {
-  del,
-  get,
-  getModelSchemaRef,
-  param,
-  patch,
-  post,
-  put, Request,
-  requestBody,
-  Response,
-  RestBindings,
-} from '@loopback/rest';
+import {del, get, getModelSchemaRef, param, patch, post, put, requestBody} from '@loopback/rest';
 import {logInUtils} from '../utils';
 import {Customer} from '../models';
 import {CustomerRepository} from '../repositories';
-import {Credentials, JWT_SECRET} from '../auth';
+import {Credentials, JWT_SECRET, secured, SecuredType} from '../auth';
 import {HttpErrors} from '@loopback/rest/dist';
 import {promisify} from 'util';
-import {inject} from '@loopback/context';
 
 const {sign} = require('jsonwebtoken');
 const signAsync = promisify(sign);
@@ -28,6 +16,7 @@ export class CustomerController {
     public customerRepository : CustomerRepository,
   ) {}
 
+  @secured(SecuredType.PERMIT_ALL)
   @post('/customers/login')
   async login(@requestBody() credentials: Credentials) {
     if(!credentials.username || !credentials.password){
@@ -60,6 +49,7 @@ export class CustomerController {
     };
   }
 
+  @secured(SecuredType.PERMIT_ALL)
   @post('/customers', {
     responses: {
       '200': {
@@ -78,12 +68,13 @@ export class CustomerController {
         },
       },
     })
-    customer: Omit<Customer, 'email'>,
+      customer: Omit<Customer, 'email'>,
   ): Promise<Customer> {
     customer.password = logInUtils.encrypt(customer.password, 5);
     return this.customerRepository.create(customer);
   }
 
+  @secured(SecuredType.IS_AUTHENTICATED)
   @get('/customers/count', {
     responses: {
       '200': {
@@ -98,6 +89,7 @@ export class CustomerController {
     return this.customerRepository.count(where);
   }
 
+  @secured(SecuredType.IS_AUTHENTICATED)
   @get('/customers', {
     responses: {
       '200': {
@@ -119,6 +111,7 @@ export class CustomerController {
     return this.customerRepository.find(filter);
   }
 
+  @secured(SecuredType.DENY_ALL)
   @patch('/customers', {
     responses: {
       '200': {
@@ -135,12 +128,13 @@ export class CustomerController {
         },
       },
     })
-    customer: Customer,
+      customer: Customer,
     @param.where(Customer) where?: Where<Customer>,
   ): Promise<Count> {
     return this.customerRepository.updateAll(customer, where);
   }
 
+  @secured(SecuredType.IS_AUTHENTICATED)
   @get('/customers/{id}', {
     responses: {
       '200': {
@@ -160,6 +154,7 @@ export class CustomerController {
     return this.customerRepository.findById(id, filter);
   }
 
+  @secured(SecuredType.HAS_ROLES, ['customer'])
   @patch('/customers/{id}', {
     responses: {
       '204': {
@@ -176,11 +171,12 @@ export class CustomerController {
         },
       },
     })
-    customer: Customer,
+      customer: Customer,
   ): Promise<void> {
     await this.customerRepository.updateById(id, customer);
   }
 
+  @secured(SecuredType.DENY_ALL)
   @put('/customers/{id}', {
     responses: {
       '204': {
@@ -195,6 +191,7 @@ export class CustomerController {
     await this.customerRepository.replaceById(id, customer);
   }
 
+  @secured(SecuredType.DENY_ALL)
   @del('/customers/{id}', {
     responses: {
       '204': {
@@ -204,6 +201,18 @@ export class CustomerController {
   })
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.customerRepository.deleteById(id);
+  }
+
+  @secured(SecuredType.HAS_ROLES, ['customer'])
+  @patch('/customers/{id}')
+  async replacePicture(
+    @param.path.string('id') id: string,
+    @requestBody() picturePath: string,
+  ): Promise<void> {
+    let userToUpdate: Customer;
+    userToUpdate = await this.customerRepository.findById(id);
+    userToUpdate.profile_picture_path = picturePath;
+    await this.customerRepository.updateById(id, userToUpdate);
   }
 }
 

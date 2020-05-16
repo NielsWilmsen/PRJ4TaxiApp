@@ -5,7 +5,7 @@ import {Driver} from '../models';
 import {DriverRepository} from '../repositories';
 import {HttpErrors} from '@loopback/rest/dist';
 import {promisify} from 'util';
-import {Credentials, JWT_SECRET} from '../auth';
+import {Credentials, JWT_SECRET, secured, SecuredType} from '../auth';
 
 const {sign} = require('jsonwebtoken');
 const signAsync = promisify(sign);
@@ -16,6 +16,7 @@ export class DriverController {
     public driverRepository : DriverRepository,
   ) {}
 
+  @secured(SecuredType.PERMIT_ALL)
   @post('/drivers/login')
   async login(@requestBody() credentials: Credentials) {
     if(!credentials.username || !credentials.password){
@@ -48,6 +49,7 @@ export class DriverController {
     };
   }
 
+  @secured(SecuredType.DENY_ALL)
   @post('/drivers', {
     responses: {
       '200': {
@@ -66,12 +68,13 @@ export class DriverController {
         },
       },
     })
-    driver: Omit<Driver, 'email'>,
+      driver: Omit<Driver, 'email'>,
   ): Promise<Driver> {
     driver.password = logInUtils.encrypt(driver.password, 5);
     return this.driverRepository.create(driver);
   }
 
+  @secured(SecuredType.IS_AUTHENTICATED)
   @get('/drivers/count', {
     responses: {
       '200': {
@@ -86,6 +89,7 @@ export class DriverController {
     return this.driverRepository.count(where);
   }
 
+  @secured(SecuredType.HAS_ROLES, ['driver'])
   @get('/drivers', {
     responses: {
       '200': {
@@ -107,6 +111,7 @@ export class DriverController {
     return this.driverRepository.find(filter);
   }
 
+  @secured(SecuredType.HAS_ROLES, ['driver'])
   @patch('/drivers', {
     responses: {
       '200': {
@@ -123,12 +128,13 @@ export class DriverController {
         },
       },
     })
-    driver: Driver,
+      driver: Driver,
     @param.where(Driver) where?: Where<Driver>,
   ): Promise<Count> {
     return this.driverRepository.updateAll(driver, where);
   }
 
+  @secured(SecuredType.HAS_ROLES, ['driver'])
   @get('/drivers/{id}', {
     responses: {
       '200': {
@@ -148,6 +154,7 @@ export class DriverController {
     return this.driverRepository.findById(id, filter);
   }
 
+  @secured(SecuredType.HAS_ROLES, ['driver'])
   @patch('/drivers/{id}', {
     responses: {
       '204': {
@@ -164,11 +171,12 @@ export class DriverController {
         },
       },
     })
-    driver: Driver,
+      driver: Driver,
   ): Promise<void> {
     await this.driverRepository.updateById(id, driver);
   }
 
+  @secured(SecuredType.DENY_ALL)
   @put('/drivers/{id}', {
     responses: {
       '204': {
@@ -183,6 +191,7 @@ export class DriverController {
     await this.driverRepository.replaceById(id, driver);
   }
 
+  @secured(SecuredType.DENY_ALL)
   @del('/drivers/{id}', {
     responses: {
       '204': {

@@ -1,32 +1,17 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  FilterExcludingWhere,
-  repository,
-  Where,
-} from '@loopback/repository';
-import {
-  post,
-  param,
-  get,
-  getFilterSchemaFor,
-  getModelSchemaRef,
-  getWhereSchemaFor,
-  patch,
-  put,
-  del,
-  requestBody,
-} from '@loopback/rest';
+import {Count, CountSchema, Filter, FilterExcludingWhere, repository, Where} from '@loopback/repository';
+import {del, get, getModelSchemaRef, param, patch, post, put, requestBody} from '@loopback/rest';
 import {Order} from '../models';
 import {OrderRepository} from '../repositories';
+import {secured, SecuredType} from '../auth';
 
 export class OrderController {
   constructor(
     @repository(OrderRepository)
-    public orderRepository : OrderRepository,
-  ) {}
+    public orderRepository: OrderRepository,
+  ) {
+  }
 
+  @secured(SecuredType.HAS_ROLES, ['customer'])
   @post('/orders', {
     responses: {
       '200': {
@@ -46,11 +31,12 @@ export class OrderController {
         },
       },
     })
-    order: Omit<Order, 'ID'>,
+      order: Omit<Order, 'ID'>,
   ): Promise<Order> {
     return this.orderRepository.create(order);
   }
 
+  @secured(SecuredType.IS_AUTHENTICATED)
   @get('/orders/count', {
     responses: {
       '200': {
@@ -65,6 +51,7 @@ export class OrderController {
     return this.orderRepository.count(where);
   }
 
+  @secured(SecuredType.DENY_ALL)
   @get('/orders', {
     responses: {
       '200': {
@@ -86,6 +73,7 @@ export class OrderController {
     return this.orderRepository.find(filter);
   }
 
+  @secured(SecuredType.DENY_ALL)
   @patch('/orders', {
     responses: {
       '200': {
@@ -102,12 +90,13 @@ export class OrderController {
         },
       },
     })
-    order: Order,
+      order: Order,
     @param.where(Order) where?: Where<Order>,
   ): Promise<Count> {
     return this.orderRepository.updateAll(order, where);
   }
 
+  @secured(SecuredType.IS_AUTHENTICATED)
   @get('/orders/{id}', {
     responses: {
       '200': {
@@ -127,6 +116,7 @@ export class OrderController {
     return this.orderRepository.findById(id, filter);
   }
 
+  @secured(SecuredType.IS_AUTHENTICATED)
   @patch('/orders/{id}', {
     responses: {
       '204': {
@@ -143,11 +133,12 @@ export class OrderController {
         },
       },
     })
-    order: Order,
+      order: Order,
   ): Promise<void> {
     await this.orderRepository.updateById(id, order);
   }
 
+  @secured(SecuredType.DENY_ALL)
   @put('/orders/{id}', {
     responses: {
       '204': {
@@ -162,6 +153,7 @@ export class OrderController {
     await this.orderRepository.replaceById(id, order);
   }
 
+  @secured(SecuredType.DENY_ALL)
   @del('/orders/{id}', {
     responses: {
       '204': {

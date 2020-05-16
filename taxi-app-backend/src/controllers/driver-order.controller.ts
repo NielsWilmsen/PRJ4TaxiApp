@@ -1,31 +1,16 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  repository,
-  Where,
-} from '@loopback/repository';
-import {
-  del,
-  get,
-  getModelSchemaRef,
-  getWhereSchemaFor,
-  param,
-  patch,
-  post,
-  requestBody,
-} from '@loopback/rest';
-import {
-  Driver,
-  Order,
-} from '../models';
+import {Count, CountSchema, Filter, repository, Where} from '@loopback/repository';
+import {del, get, getModelSchemaRef, getWhereSchemaFor, param, patch, post, requestBody} from '@loopback/rest';
+import {Driver, Order} from '../models';
 import {DriverRepository} from '../repositories';
+import {secured, SecuredType} from '../auth';
 
 export class DriverOrderController {
   constructor(
     @repository(DriverRepository) protected driverRepository: DriverRepository,
-  ) { }
+  ) {
+  }
 
+  @secured(SecuredType.HAS_ROLES, ['driver'])
   @get('/drivers/{id}/orders', {
     responses: {
       '200': {
@@ -45,6 +30,7 @@ export class DriverOrderController {
     return this.driverRepository.driverOrders(id).find(filter);
   }
 
+  @secured(SecuredType.HAS_ROLES, ['driver'])
   @post('/drivers/{id}/orders', {
     responses: {
       '200': {
@@ -70,6 +56,7 @@ export class DriverOrderController {
     return this.driverRepository.driverOrders(id).create(order);
   }
 
+  @secured(SecuredType.HAS_ROLES, ['driver'])
   @patch('/drivers/{id}/orders', {
     responses: {
       '200': {
@@ -87,12 +74,13 @@ export class DriverOrderController {
         },
       },
     })
-    order: Partial<Order>,
+      order: Partial<Order>,
     @param.query.object('where', getWhereSchemaFor(Order)) where?: Where<Order>,
   ): Promise<Count> {
     return this.driverRepository.driverOrders(id).patch(order, where);
   }
 
+  @secured(SecuredType.DENY_ALL)
   @del('/drivers/{id}/orders', {
     responses: {
       '200': {

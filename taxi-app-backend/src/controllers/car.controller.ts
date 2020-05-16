@@ -3,7 +3,6 @@ import {del, get, getModelSchemaRef, param, patch, post, put, requestBody} from 
 import {Car} from '../models';
 import {CarRepository} from '../repositories';
 import {secured, SecuredType} from '../auth';
-import {asResolutionOptions} from '@loopback/context';
 
 export class CarController {
   constructor(
@@ -11,6 +10,7 @@ export class CarController {
     public carRepository : CarRepository,
   ) {}
 
+  @secured(SecuredType.HAS_ROLES, ['driver'])
   @post('/cars', {
     responses: {
       '200': {
@@ -29,10 +29,11 @@ export class CarController {
         },
       },
     })
-    car: Omit<Car, 'driver_email'>,
+      car: Omit<Car, 'driver_email'>,
   ): Promise<Car> {
     return this.carRepository.create(car);
   }
+
   @secured(SecuredType.IS_AUTHENTICATED)
   @get('/cars/count', {
     responses: {
@@ -50,6 +51,7 @@ export class CarController {
     return this.carRepository.count(where);
   }
 
+  @secured(SecuredType.DENY_ALL)
   @get('/cars', {
     responses: {
       '200': {
@@ -71,6 +73,7 @@ export class CarController {
     return this.carRepository.find(filter);
   }
 
+  @secured(SecuredType.DENY_ALL)
   @patch('/cars', {
     responses: {
       '200': {
@@ -87,12 +90,13 @@ export class CarController {
         },
       },
     })
-    car: Car,
+      car: Car,
     @param.where(Car) where?: Where<Car>,
   ): Promise<Count> {
     return this.carRepository.updateAll(car, where);
   }
 
+  @secured(SecuredType.IS_AUTHENTICATED)
   @get('/cars/{id}', {
     responses: {
       '200': {
@@ -112,6 +116,7 @@ export class CarController {
     return this.carRepository.findById(id, filter);
   }
 
+  @secured(SecuredType.HAS_ROLES, ['driver'])
   @patch('/cars/{id}', {
     responses: {
       '204': {
@@ -128,11 +133,12 @@ export class CarController {
         },
       },
     })
-    car: Car,
+      car: Car,
   ): Promise<void> {
     await this.carRepository.updateById(id, car);
   }
 
+  @secured(SecuredType.HAS_ROLES, ['driver'])
   @put('/cars/{id}', {
     responses: {
       '204': {
@@ -147,6 +153,7 @@ export class CarController {
     await this.carRepository.replaceById(id, car);
   }
 
+  @secured(SecuredType.HAS_ROLES, ['driver'])
   @del('/cars/{id}', {
     responses: {
       '204': {

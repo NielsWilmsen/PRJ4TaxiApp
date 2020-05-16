@@ -1,31 +1,16 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  repository,
-  Where,
-} from '@loopback/repository';
-import {
-  del,
-  get,
-  getModelSchemaRef,
-  getWhereSchemaFor,
-  param,
-  patch,
-  post,
-  requestBody,
-} from '@loopback/rest';
-import {
-  Customer,
-  Order,
-} from '../models';
+import {Count, CountSchema, Filter, repository, Where} from '@loopback/repository';
+import {del, get, getModelSchemaRef, getWhereSchemaFor, param, patch, post, requestBody} from '@loopback/rest';
+import {Customer, Order} from '../models';
 import {CustomerRepository} from '../repositories';
+import {secured, SecuredType} from '../auth';
 
 export class CustomerOrderController {
   constructor(
     @repository(CustomerRepository) protected customerRepository: CustomerRepository,
-  ) { }
+  ) {
+  }
 
+  @secured(SecuredType.HAS_ROLES, ['customer'])
   @get('/customers/{id}/orders', {
     responses: {
       '200': {
@@ -45,6 +30,7 @@ export class CustomerOrderController {
     return this.customerRepository.customerOrders(id).find(filter);
   }
 
+  @secured(SecuredType.HAS_ROLES, ['customer'])
   @post('/customers/{id}/orders', {
     responses: {
       '200': {
@@ -70,6 +56,7 @@ export class CustomerOrderController {
     return this.customerRepository.customerOrders(id).create(order);
   }
 
+  @secured(SecuredType.DENY_ALL)
   @patch('/customers/{id}/orders', {
     responses: {
       '200': {
@@ -87,12 +74,13 @@ export class CustomerOrderController {
         },
       },
     })
-    order: Partial<Order>,
+      order: Partial<Order>,
     @param.query.object('where', getWhereSchemaFor(Order)) where?: Where<Order>,
   ): Promise<Count> {
     return this.customerRepository.customerOrders(id).patch(order, where);
   }
 
+  @secured(SecuredType.DENY_ALL)
   @del('/customers/{id}/orders', {
     responses: {
       '200': {

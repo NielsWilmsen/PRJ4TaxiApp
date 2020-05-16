@@ -1,31 +1,16 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  repository,
-  Where,
-} from '@loopback/repository';
-import {
-  del,
-  get,
-  getModelSchemaRef,
-  getWhereSchemaFor,
-  param,
-  patch,
-  post,
-  requestBody,
-} from '@loopback/rest';
-import {
-  Driver,
-  Car,
-} from '../models';
+import {Count, CountSchema, Filter, repository, Where} from '@loopback/repository';
+import {del, get, getModelSchemaRef, getWhereSchemaFor, param, patch, post, requestBody} from '@loopback/rest';
+import {Car, Driver} from '../models';
 import {DriverRepository} from '../repositories';
+import {secured, SecuredType} from '../auth';
 
 export class DriverCarController {
   constructor(
     @repository(DriverRepository) protected driverRepository: DriverRepository,
-  ) { }
+  ) {
+  }
 
+  @secured(SecuredType.HAS_ROLES, ['driver'])
   @get('/drivers/{id}/car', {
     responses: {
       '200': {
@@ -45,6 +30,7 @@ export class DriverCarController {
     return this.driverRepository.cars(id).get(filter);
   }
 
+  @secured(SecuredType.HAS_ROLES, ['driver'])
   @post('/drivers/{id}/car', {
     responses: {
       '200': {
@@ -70,6 +56,7 @@ export class DriverCarController {
     return this.driverRepository.cars(id).create(car);
   }
 
+  @secured(SecuredType.HAS_ROLES, ['driver'])
   @patch('/drivers/{id}/car', {
     responses: {
       '200': {
@@ -87,12 +74,13 @@ export class DriverCarController {
         },
       },
     })
-    car: Partial<Car>,
+      car: Partial<Car>,
     @param.query.object('where', getWhereSchemaFor(Car)) where?: Where<Car>,
   ): Promise<Count> {
     return this.driverRepository.cars(id).patch(car, where);
   }
 
+  @secured(SecuredType.DENY_ALL)
   @del('/drivers/{id}/car', {
     responses: {
       '200': {
