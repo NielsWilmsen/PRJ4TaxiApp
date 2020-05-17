@@ -57,6 +57,7 @@
     "@loopback/rest-explorer": "^2.0.2",
     "@loopback/service-proxy": "^2.0.2",
     "@types/multer": "^1.4.3",
+    "apn": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
     "loopback-component-storage": "^3.7.0",
     "loopback-connector-mysql": "^5.4.3",
