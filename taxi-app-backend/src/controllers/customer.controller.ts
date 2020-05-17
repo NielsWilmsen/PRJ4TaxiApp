@@ -204,7 +204,7 @@ export class CustomerController {
   }
 
   @secured(SecuredType.HAS_ROLES, ['customer'])
-  @patch('/customers/{id}')
+  @patch('/customers/picture/{id}')
   async replacePicture(
     @param.path.string('id') id: string,
     @requestBody() picturePath: string,
