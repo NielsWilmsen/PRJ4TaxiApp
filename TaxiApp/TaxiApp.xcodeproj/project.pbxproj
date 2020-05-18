@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AA4C87B2472D95000E09DAB /* TaxiAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA4C87A2472D95000E09DAB /* TaxiAppTests.swift */; };
 		160C9CFD244A006500212123 /* CustomerMainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160C9CFC244A006500212123 /* CustomerMainPageViewController.swift */; };
 		1613B09324407C7C004C4459 /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1613B09224407C7C004C4459 /* ResponseHandler.swift */; };
 		1613B09424408019004C4459 /* RestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FC211C24407167002C9315 /* RestAPI.swift */; };
@@ -27,13 +28,25 @@
 		16FF45BD243B25E100FD4F97 /* CustomerRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FF45BC243B25E100FD4F97 /* CustomerRegisterViewController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		0AA4C87D2472D95000E09DAB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 16FF459D243B178000FD4F97 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 16FF45A4243B178000FD4F97;
+			remoteInfo = TaxiApp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		0AA4C8782472D95000E09DAB /* TaxiAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaxiAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AA4C87A2472D95000E09DAB /* TaxiAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxiAppTests.swift; sourceTree = "<group>"; };
+		0AA4C87C2472D95000E09DAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		160C9CFC244A006500212123 /* CustomerMainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerMainPageViewController.swift; sourceTree = "<group>"; };
 		1613B09224407C7C004C4459 /* ResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHandler.swift; sourceTree = "<group>"; };
 		16545169246ADEAE002914D9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1654516B246D77EC002914D9 /* DriverMainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverMainScreenViewController.swift; sourceTree = "<group>"; };
 		16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverRegisterViewController.swift; sourceTree = "<group>"; };
-		16D376D22451DC9A00CF936F /* currentLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = currentLocation.gpx; path = ../../../currentLocation.gpx; sourceTree = "<group>"; };
 		16D376D324645AAB00CF936F /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		16D376D524645D3B00CF936F /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		16D376D724645F3E00CF936F /* Driver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
@@ -51,6 +64,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0AA4C8752472D95000E09DAB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		16FF45A2243B178000FD4F97 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -62,6 +82,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0AA4C8792472D95000E09DAB /* TaxiAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				0AA4C87A2472D95000E09DAB /* TaxiAppTests.swift */,
+				0AA4C87C2472D95000E09DAB /* Info.plist */,
+			);
+			path = TaxiAppTests;
+			sourceTree = "<group>";
+		};
 		16545165246ADDC8002914D9 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,8 +134,8 @@
 		16FF459C243B178000FD4F97 = {
 			isa = PBXGroup;
 			children = (
-				16D376D22451DC9A00CF936F /* currentLocation.gpx */,
 				16FF45A7243B178000FD4F97 /* TaxiApp */,
+				0AA4C8792472D95000E09DAB /* TaxiAppTests */,
 				16FF45A6243B178000FD4F97 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -115,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				16FF45A5243B178000FD4F97 /* TaxiApp.app */,
+				0AA4C8782472D95000E09DAB /* TaxiAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -139,6 +169,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0AA4C8772472D95000E09DAB /* TaxiAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0AA4C87F2472D95000E09DAB /* Build configuration list for PBXNativeTarget "TaxiAppTests" */;
+			buildPhases = (
+				0AA4C8742472D95000E09DAB /* Sources */,
+				0AA4C8752472D95000E09DAB /* Frameworks */,
+				0AA4C8762472D95000E09DAB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0AA4C87E2472D95000E09DAB /* PBXTargetDependency */,
+			);
+			name = TaxiAppTests;
+			productName = TaxiAppTests;
+			productReference = 0AA4C8782472D95000E09DAB /* TaxiAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		16FF45A4243B178000FD4F97 /* TaxiApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 16FF45B9243B178200FD4F97 /* Build configuration list for PBXNativeTarget "TaxiApp" */;
@@ -165,10 +213,14 @@
 		16FF459D243B178000FD4F97 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1140;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Niels Wilmsen";
 				TargetAttributes = {
+					0AA4C8772472D95000E09DAB = {
+						CreatedOnToolsVersion = 11.4.1;
+						TestTargetID = 16FF45A4243B178000FD4F97;
+					};
 					16FF45A4243B178000FD4F97 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
@@ -191,11 +243,19 @@
 			projectRoot = "";
 			targets = (
 				16FF45A4243B178000FD4F97 /* TaxiApp */,
+				0AA4C8772472D95000E09DAB /* TaxiAppTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0AA4C8762472D95000E09DAB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		16FF45A3243B178000FD4F97 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -209,6 +269,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0AA4C8742472D95000E09DAB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0AA4C87B2472D95000E09DAB /* TaxiAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		16FF45A1243B178000FD4F97 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -232,6 +300,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		0AA4C87E2472D95000E09DAB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 16FF45A4243B178000FD4F97 /* TaxiApp */;
+			targetProxy = 0AA4C87D2472D95000E09DAB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		16FF45AE243B178000FD4F97 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -252,6 +328,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0AA4C8802472D95000E09DAB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7N96PQTZC6;
+				INFOPLIST_FILE = TaxiAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = group10.TaxiAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TaxiApp.app/TaxiApp";
+			};
+			name = Debug;
+		};
+		0AA4C8812472D95000E09DAB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7N96PQTZC6;
+				INFOPLIST_FILE = TaxiAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = group10.TaxiAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TaxiApp.app/TaxiApp";
+			};
+			name = Release;
+		};
 		16FF45B7243B178200FD4F97 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -405,6 +523,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0AA4C87F2472D95000E09DAB /* Build configuration list for PBXNativeTarget "TaxiAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0AA4C8802472D95000E09DAB /* Debug */,
+				0AA4C8812472D95000E09DAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		16FF45A0243B178000FD4F97 /* Build configuration list for PBXProject "TaxiApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
