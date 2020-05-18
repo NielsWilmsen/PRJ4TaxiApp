@@ -113,7 +113,7 @@ class CustomerMainPageViewController: UIViewController, MKMapViewDelegate, Respo
         
         let pickupCoordinates: CLLocationCoordinate2D = placemarks[0].location!.coordinate
         let destinationCoordinates: CLLocationCoordinate2D = placemarks[1].location!.coordinate
-        
+                        
         let sourcePlacemark = MKPlacemark(coordinate: pickupCoordinates, addressDictionary: nil)
         let destinationPlacemark = MKPlacemark(coordinate: destinationCoordinates, addressDictionary: nil)
         
@@ -157,8 +157,13 @@ class CustomerMainPageViewController: UIViewController, MKMapViewDelegate, Respo
             }
             
             let route = response.routes[0]
-            self.mapKit.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
             
+            let distance = route.distance
+            
+            print("\(distance / 1000)km")
+            
+            self.mapKit.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
+                        
             let rect = route.polyline.boundingMapRect
             
             let p1: MKMapPoint = MKMapPoint (pickupCoordinates);
@@ -204,7 +209,7 @@ class CustomerMainPageViewController: UIViewController, MKMapViewDelegate, Respo
     }
     
     func onFailure(_ response: NSDictionary) {
-        
+        print("FAILURE : " + response.description)
     }
 }
 
@@ -229,6 +234,6 @@ extension CustomerMainPageViewController: CLLocationManagerDelegate {
         }
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
+        //print(error.localizedDescription)
     }
 }
