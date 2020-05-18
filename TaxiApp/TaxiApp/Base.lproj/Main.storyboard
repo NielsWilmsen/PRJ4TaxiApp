@@ -368,7 +368,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beH-J9-PZf">
-                                <rect key="frame" x="8" y="401" width="62" height="30"/>
+                                <rect key="frame" x="8" y="626" width="62" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="LOGOUT"/>
                                 <connections>
@@ -461,7 +461,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="ul8-cS-t5T"/>
-        <segue reference="ar0-Kp-6Tb"/>
+        <segue reference="4ta-24-fjg"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="car" catalog="system" width="128" height="93"/>

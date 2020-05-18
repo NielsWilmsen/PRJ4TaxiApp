@@ -200,7 +200,7 @@ class CustomerMainPageViewController: UIViewController, MKMapViewDelegate, Respo
     
     @IBAction func Logout(_ sender: Any) {
         User.delete()
-        self.dismiss(animated: true)
+        navigationController?.popToRootViewController(animated: true)
     }
     
     func onFailure(_ response: NSDictionary) {
