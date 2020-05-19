@@ -24,6 +24,8 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
         if(userEmail != nil && authToken != nil){
             createUser()
         }
+        
+        getOrders()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -43,36 +45,37 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func createUser(){
-        restAPI.get(authToken, Endpoint.DRIVERS + userEmail)
+        print("\(authToken!), \(userEmail!)")
+        restAPI.get(authToken!, Endpoint.DRIVERS + userEmail!)
     }
     
-    func onSuccess(_ response: NSDictionary) {
+    func getOrders(){
+        restAPI.get(User.getUserAuthToken()!, Endpoint.DRIVERORDERS.replacingOccurrences(of: "{id}", with: User.getUserEmail()!))
+    }
+    
+    func onSuccess(_ response: Dictionary<String, Any>) {
         
-        //let endpoint = response.value(forKey: "endpoint") as! String
-        
-        //print(endpoint)
-        
-        /*
+        let endpoint = response["endpoint"] as! String
         
         switch endpoint{
         case Endpoint.CUSTOMERLOGIN:
-            let firstName: String = response.value(forKey: "first_name") as! String
-            let lastName: String = response.value(forKey: "last_name") as! String
-            let password: String = response.value(forKey: "password") as! String
+            let firstName: String = response["first_name"] as! String
+            let lastName: String = response["last_name"] as! String
+            let password: String = response["password"] as! String
             
-            let driver = Driver(firstName, lastName, userEmail, password, authToken)
+            let driver = Driver(firstName, lastName, userEmail!, password, authToken!)
             
             Driver.store(driver)
             
-        case Endpoint.DRIVERORDERS.replacingOccurrences(of: "{id}", with: userEmail):
+        case Endpoint.DRIVERORDERS.replacingOccurrences(of: "{id}", with: User.getUserEmail()!):
             debugPrint(response)
         default:
             break;
         }
- */
+        
     }
     
-    func onFailure(_ response: NSDictionary) {
+    func onFailure(_ response: Dictionary<String, Any>) {
         
     }
     

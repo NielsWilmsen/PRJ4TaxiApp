@@ -81,12 +81,12 @@ class LoginViewController: UIViewController, ResponseHandler {
         }
     }
     
-    func onSuccess(_ response: NSDictionary) {
+    func onSuccess(_ response: Dictionary<String, Any>) {
         print("---- SUCCESS ----")
-        
-        authToken = response.object(forKey: "token") as? String
-        userEmail = response.object(forKey: "email") as? String
-                
+            
+        authToken = response["token"] as? String
+        userEmail = response["email"] as? String
+                    
         performSegue(withIdentifier: selectedUser.rawValue + "Login", sender: self)
     }
     
@@ -106,7 +106,7 @@ class LoginViewController: UIViewController, ResponseHandler {
         }
     }
     
-    func onFailure(_ response: NSDictionary) {
+    func onFailure(_ response: Dictionary<String, Any>) {
         print("---- FAILURE ----")
     }
     

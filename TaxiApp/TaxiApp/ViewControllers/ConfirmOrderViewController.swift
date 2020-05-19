@@ -33,11 +33,11 @@ class ConfirmOrderViewController: UIViewController, ResponseHandler {
         restAPI.post(parameters, "/orders")
     }
     
-    func onSuccess(_ response: NSDictionary) {
+    func onSuccess(_ response: Dictionary<String, Any>) {
         
     }
     
-    func onFailure(_ response: NSDictionary) {
+    func onFailure(_ response: Dictionary<String, Any>) {
         
     }
     

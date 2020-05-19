@@ -200,16 +200,16 @@ class CustomerMainPageViewController: UIViewController, MKMapViewDelegate, Respo
         let restAPI = RestAPI()
         
         restAPI.responseData = self
-        
-        restAPI.get(authToken, "/customers/" + userEmail)
+                
+        restAPI.get(authToken!, Endpoint.CUSTOMERS + userEmail!)
     }
     
-    func onSuccess(_ response: NSDictionary) {
+    func onSuccess(_ response: Dictionary<String, Any>) {
         
-        let firstName: String = response.value(forKey: "first_name") as! String
-        let lastName: String = response.value(forKey: "last_name") as! String
-        let password: String = response.value(forKey: "password") as! String
-        
+        let firstName: String = response["first_name"] as! String
+        let lastName: String = response["last_name"] as! String
+        let password: String = response["password"] as! String
+                
         let customer = Customer(firstName, lastName, userEmail, password, authToken)
                 
         Customer.store(customer)
@@ -220,7 +220,7 @@ class CustomerMainPageViewController: UIViewController, MKMapViewDelegate, Respo
         performSegue(withIdentifier: "CustomerLoggedOut", sender: self)
     }
     
-    func onFailure(_ response: NSDictionary) {
+    func onFailure(_ response: Dictionary<String, Any>) {
         print("FAILURE : " + response.description)
     }
 }

@@ -12,9 +12,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         
         // Check if the user is logged in
-        if(User.get() != nil){
-            print("Logged in with userType: " + User.get()!)
-            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: User.get()! + "LoggedIn")
+        if(User.getUserType() != nil){
+            print("Logged in with userType: " + User.getUserType()!)
+            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: User.getUserType()! + "LoggedIn")
         } else {
             self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "NotLoggedIn")
         }

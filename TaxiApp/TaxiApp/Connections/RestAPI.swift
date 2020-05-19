@@ -18,11 +18,10 @@ class RestAPI {
                 switch response.result {
                 case .success(let JSON):
                     print("Post request successful")
-                    let parsedResponse = JSON as! NSDictionary
-                    //parsedResponse.setValue(response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: ""), forUndefinedKey: "endpoint")
+                    var parsedResponse = JSON as! Dictionary<String, Any>
+                    parsedResponse["endpoint"] = response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: "")
                     self.responseData?.onSuccess(parsedResponse)
                 case let .failure(error):
-                    //self.responseData?.onFailure(error as! NSDictionary)
                     print(error)
                 }
         }
@@ -31,18 +30,21 @@ class RestAPI {
     func get(_ authToken: String, _ address: String){
         let endPoint: String = urlString + address
         print("GET request to: " + endPoint)
-        AF.request(endPoint)
+        let parameters = ["Authorization": "Bearer " + authToken] as HTTPHeaders
+        AF.request(endPoint,
+                   parameters: nil,
+                   encoding: URLEncoding.default,
+                   headers: parameters)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 switch response.result {
                 case .success(let JSON):
                     print("Get request successful")
-                    let parsedResponse = JSON as! NSDictionary
-                    //parsedResponse.setValue("endpoint", forKey: response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: ""))
+                    var parsedResponse = JSON as! Dictionary<String, Any>
+                    parsedResponse["endpoint"] = response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: "")
                     self.responseData?.onSuccess(parsedResponse)
                 case let .failure(error):
-                    //self.responseData?.onFailure(error as! NSDictionary)
-                    print(error)
+                    debugPrint(error)
                 }
         }
     }
@@ -59,11 +61,11 @@ class RestAPI {
                 switch response.result {
                 case .success(let JSON):
                     print("Delete request successful")
-                    let parsedResponse = JSON as! NSDictionary
-                    //parsedResponse.setValue("endpoint", forKey: response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: ""))
+                    var parsedResponse = JSON as! Dictionary<String, Any>
+                    parsedResponse["endpoint"] = response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: "")
                     self.responseData?.onSuccess(parsedResponse)
                 case let .failure(error):
-                    self.responseData?.onFailure(error as! NSDictionary)
+                    print(error)
                 }
         }
     }
