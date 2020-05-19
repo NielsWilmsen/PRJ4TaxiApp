@@ -5,7 +5,6 @@ class CustomerMainPageViewController: UIViewController, MKMapViewDelegate, Respo
     
     @IBOutlet weak var mapKit: MKMapView!
     @IBOutlet weak var pickupInput: UITextField!
-    @IBOutlet weak var welcomeText: UILabel!
     @IBOutlet weak var destinationInput: UITextField!
     
     var locations: [CLPlacemark] = []
@@ -14,13 +13,24 @@ class CustomerMainPageViewController: UIViewController, MKMapViewDelegate, Respo
     var userEmail: String!
     
     @IBAction func confirmLocation(_ sender: Any) {
-        performSegue(withIdentifier: "ConfirmLocation", sender: self)
+        
+        if(pickupInput.text == "" || destinationInput.text == "") {
+            print("Pickup or destination input is empty")
+        } else {
+            performSegue(withIdentifier: "ConfirmLocation", sender: self)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as! ConfirmOrderViewController
-        vc.CLLPickup = locations[0]
-        vc.CLLDestination = locations[1]
+        
+        switch segue.identifier {
+        case "ConfirmLocation":
+            let vc = segue.destination as! ConfirmOrderViewController
+            vc.CLLPickup = locations[0]
+            vc.CLLDestination = locations[1]            
+        default:
+            break
+        }
     }
     
     @IBAction func searchLocation(_ sender: UIButton) {
@@ -173,6 +183,8 @@ class CustomerMainPageViewController: UIViewController, MKMapViewDelegate, Respo
             let mapRect: MKMapRect = MKMapRect(x: fmin(p1.x,p2.x) - 100, y: fmin(p1.y,p2.y) - 100, width: fabs(p1.x-p2.x - 1000), height: fabs(p1.y-p2.y - 1000));
             
             self.mapKit.setRegion(MKCoordinateRegion(mapRect), animated: true)
+            
+            
         }
     }
     
@@ -199,13 +211,13 @@ class CustomerMainPageViewController: UIViewController, MKMapViewDelegate, Respo
         let password: String = response.value(forKey: "password") as! String
         
         let customer = Customer(firstName, lastName, userEmail, password, authToken)
-        
+                
         Customer.store(customer)
     }
     
     @IBAction func Logout(_ sender: Any) {
         User.delete()
-        navigationController?.popToRootViewController(animated: true)
+        performSegue(withIdentifier: "CustomerLoggedOut", sender: self)
     }
     
     func onFailure(_ response: NSDictionary) {

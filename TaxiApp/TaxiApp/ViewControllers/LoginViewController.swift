@@ -19,6 +19,8 @@ class LoginViewController: UIViewController, ResponseHandler {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        
         // Dismiss the keyboard when a user taps anywhere
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard)))
         
@@ -97,7 +99,8 @@ class LoginViewController: UIViewController, ResponseHandler {
             vc.userEmail = self.userEmail
         case "DriverLogin":
             let vc = segue.destination as! DriverMainScreenViewController
-            
+            vc.authToken = self.authToken
+            vc.userEmail = self.userEmail
         default:
             break
         }

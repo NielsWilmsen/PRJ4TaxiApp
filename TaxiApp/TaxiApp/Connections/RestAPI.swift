@@ -15,12 +15,15 @@ class RestAPI {
                    encoder: JSONParameterEncoder.default)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
+                print()
                 switch response.result {
                 case .success(let JSON):
                     print("Post request successful")
-                    self.responseData?.onSuccess(JSON as! NSDictionary)
+                    let parsedResponse = JSON as! NSDictionary
+                    parsedResponse.setValue("endpoint", forKey: response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: ""))
+                    self.responseData?.onSuccess(parsedResponse)
                 case let .failure(error):
-                    print(error)
+                    self.responseData?.onFailure(error as! NSDictionary)
                 }
         }
     }
@@ -34,9 +37,11 @@ class RestAPI {
                 switch response.result {
                 case .success(let JSON):
                     print("Get request successful")
-                    self.responseData?.onSuccess(JSON as! NSDictionary)
+                    let parsedResponse = JSON as! NSDictionary
+                    parsedResponse.setValue("endpoint", forKey: response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: ""))
+                    self.responseData?.onSuccess(parsedResponse)
                 case let .failure(error):
-                    print(error)
+                    self.responseData?.onFailure(error as! NSDictionary)
                 }
         }
     }
