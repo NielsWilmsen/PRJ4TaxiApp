@@ -71,9 +71,7 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
         
         let parameters = ["first_name": name, "last_name": lastName, "email": email, "password": password] as [String : String]
         
-        restAPI.post(parameters, "/customers")
-        
-        
+        restAPI.post(parameters, Endpoint.CUSTOMERS)
     }
     
     @objc func dismissKeyboard(){

@@ -45,5 +45,27 @@ class RestAPI {
                 }
         }
     }
+    
+    func delete(_ parameters: [String: String], _ authToken: String, _ address: String){
+        let endPoint: String = urlString + address
+        print("DELETE request to: " + endPoint)
+        AF.request(endPoint,
+                   method: .delete,
+                   parameters: parameters,
+                   encoder: JSONParameterEncoder.default)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                print()
+                switch response.result {
+                case .success(let JSON):
+                    print("Delete request successful")
+                    let parsedResponse = JSON as! NSDictionary
+                    parsedResponse.setValue("endpoint", forKey: response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: ""))
+                    self.responseData?.onSuccess(parsedResponse)
+                case let .failure(error):
+                    self.responseData?.onFailure(error as! NSDictionary)
+                }
+        }
+    }
 }
 

@@ -43,15 +43,15 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func createUser(){
-        restAPI.get(authToken, "/drivers/" + userEmail)
+        restAPI.get(authToken, Endpoint.DRIVERS + userEmail)
     }
     
     func onSuccess(_ response: NSDictionary) {
         
-        print(response.value(forKey: "endpoint") as! String)
-                
-        /*
-        if(response.value(forKey: "endpoint") != nil) {
+        let endpoint = response.value(forKey: "endpoint") as! String
+        
+        switch endpoint{
+        case Endpoint.CUSTOMERLOGIN:
             let firstName: String = response.value(forKey: "first_name") as! String
             let lastName: String = response.value(forKey: "last_name") as! String
             let password: String = response.value(forKey: "password") as! String
@@ -59,8 +59,12 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
             let driver = Driver(firstName, lastName, userEmail, password, authToken)
             
             Driver.store(driver)
+            
+        case Endpoint.DRIVERORDERS.replacingOccurrences(of: "{id}", with: userEmail):
+            debugPrint(response)
+        default:
+            break;
         }
- */
     }
     
     func onFailure(_ response: NSDictionary) {
