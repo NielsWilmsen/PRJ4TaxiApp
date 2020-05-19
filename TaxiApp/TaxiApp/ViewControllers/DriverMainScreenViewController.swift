@@ -48,7 +48,11 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
     
     func onSuccess(_ response: NSDictionary) {
         
-        let endpoint = response.value(forKey: "endpoint") as! String
+        //let endpoint = response.value(forKey: "endpoint") as! String
+        
+        //print(endpoint)
+        
+        /*
         
         switch endpoint{
         case Endpoint.CUSTOMERLOGIN:
@@ -65,6 +69,7 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
         default:
             break;
         }
+ */
     }
     
     func onFailure(_ response: NSDictionary) {

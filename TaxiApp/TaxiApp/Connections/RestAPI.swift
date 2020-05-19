@@ -4,7 +4,7 @@ import Alamofire
 class RestAPI {
     
     var responseData: ResponseHandler?
-    var urlString = "http://taxi-app-backend2.eu-gb.mybluemix.net"
+    var urlString = "https://taxi-app-backend2.eu-gb.mybluemix.net"
     
     func post(_ parameters: [String: String], _ address: String){
         let endPoint: String = urlString + address
@@ -15,15 +15,15 @@ class RestAPI {
                    encoder: JSONParameterEncoder.default)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
-                print()
                 switch response.result {
                 case .success(let JSON):
                     print("Post request successful")
                     let parsedResponse = JSON as! NSDictionary
-                    parsedResponse.setValue("endpoint", forKey: response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: ""))
+                    //parsedResponse.setValue(response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: ""), forUndefinedKey: "endpoint")
                     self.responseData?.onSuccess(parsedResponse)
                 case let .failure(error):
-                    self.responseData?.onFailure(error as! NSDictionary)
+                    //self.responseData?.onFailure(error as! NSDictionary)
+                    print(error)
                 }
         }
     }
@@ -38,10 +38,11 @@ class RestAPI {
                 case .success(let JSON):
                     print("Get request successful")
                     let parsedResponse = JSON as! NSDictionary
-                    parsedResponse.setValue("endpoint", forKey: response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: ""))
+                    //parsedResponse.setValue("endpoint", forKey: response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: ""))
                     self.responseData?.onSuccess(parsedResponse)
                 case let .failure(error):
-                    self.responseData?.onFailure(error as! NSDictionary)
+                    //self.responseData?.onFailure(error as! NSDictionary)
+                    print(error)
                 }
         }
     }
@@ -55,12 +56,11 @@ class RestAPI {
                    encoder: JSONParameterEncoder.default)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
-                print()
                 switch response.result {
                 case .success(let JSON):
                     print("Delete request successful")
                     let parsedResponse = JSON as! NSDictionary
-                    parsedResponse.setValue("endpoint", forKey: response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: ""))
+                    //parsedResponse.setValue("endpoint", forKey: response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: ""))
                     self.responseData?.onSuccess(parsedResponse)
                 case let .failure(error):
                     self.responseData?.onFailure(error as! NSDictionary)
