@@ -4,7 +4,7 @@ import Alamofire
 class RestAPI {
     
     var responseData: ResponseHandler?
-    var urlString = "https://taxi-backend.eu-gb.mybluemix.net"
+    var urlString = "http://taxi-app-backend2.eu-gb.mybluemix.net"
     
     func post(_ parameters: [String: String], _ address: String){
         let endPoint: String = urlString + address
