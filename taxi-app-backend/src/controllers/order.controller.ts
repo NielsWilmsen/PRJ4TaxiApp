@@ -1,7 +1,7 @@
 import {Count, CountSchema, Filter, FilterExcludingWhere, repository, Where} from '@loopback/repository';
 import {del, get, getModelSchemaRef, param, patch, post, put, requestBody} from '@loopback/rest';
-import {Order} from '../models';
-import {OrderRepository} from '../repositories';
+import {Customer, Driver, Order} from '../models';
+import {CustomerRepository, DriverRepository, OrderRepository} from '../repositories';
 import {secured, SecuredType} from '../auth';
 import {DistanceUtils} from "../utils/DistanceUtils";
 
@@ -9,6 +9,10 @@ export class OrderController {
   constructor(
     @repository(OrderRepository)
     public orderRepository: OrderRepository,
+    @repository(CustomerRepository)
+    public customerRepository: CustomerRepository,
+    @repository(DriverRepository)
+    public driverRepository: DriverRepository,
   ) {
   }
 
@@ -34,6 +38,9 @@ export class OrderController {
     })
       order: Omit<Order, 'ID'>,
   ): Promise<Order> {
+    const customerToUpdate: Customer = await this.customerRepository.findById(order.customer_email);
+    customerToUpdate.status = 1;
+    await this.customerRepository.updateById(order.customer_email, customerToUpdate);
     return this.orderRepository.create(order);
   }
 
@@ -77,7 +84,8 @@ export class OrderController {
     const orders: Array<Order> = await this.orderRepository.find(filter);
     const fittingOrders : Array<Order> = [];
     orders.forEach(function (value) {
-      if(DistanceUtils.distanceFromOrder(value.latitude, value.longitude, driversLat, driversLon, range)){
+      if(DistanceUtils.distanceFromOrder(value.pick_up_latitude, value.pick_up_longitude, driversLat, driversLon, range) &&
+         value.status === 0){
         fittingOrders.push(value);
       }
     })
@@ -147,6 +155,105 @@ export class OrderController {
       order: Order,
   ): Promise<void> {
     await this.orderRepository.updateById(id, order);
+  }
+
+  @secured(SecuredType.PERMIT_ALL)
+  @patch('/orders/acceptOrder/{id}/{driverEmail}', {
+    responses: {
+      '204': {
+        description: 'Order PATCH success',
+      },
+    },
+  })
+  async acceptOrder(
+      @param.path.number('id') id: number,
+      @param.path.string('driverEmail') driverEmail: string,
+  ): Promise<void> {
+    const orderToUpdate: Order = await this.findById(id);
+    const driverToUpdate: Driver = await this.driverRepository.findById(driverEmail);
+    orderToUpdate.status = 1;
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    orderToUpdate.driver_email = driverEmail;
+    driverToUpdate.status = 1;
+
+    await this.driverRepository.updateById(driverEmail, driverToUpdate);
+    await this.orderRepository.updateById(id, orderToUpdate);
+  }
+
+  @secured(SecuredType.IS_AUTHENTICATED)
+  @patch('/orders/pickUpCustomer/{id}/{driverLat}/{driverLon}', {
+    responses: {
+      '204': {
+        description: 'Order PATCH success',
+      },
+    },
+  })
+  async pickUpCustomer(
+      @param.path.number('id') id: number,
+      @param.path.number('driverLat') driverLat: number,
+      @param.path.number('driverLon') driverLon: number,
+  ): Promise<void> {
+    const orderToUpdate:Order = await this.orderRepository.findById(id);
+
+    if(DistanceUtils.distanceFromOrder(orderToUpdate.drop_latitude, orderToUpdate.pick_up_longitude, driverLat, driverLon, 0.5)){
+      orderToUpdate.status = 2;
+      await this.orderRepository.updateById(id, orderToUpdate);
+    } else {
+      throw new Error('The driver is too far in order to be able to pick up the customer')
+    }
+  }
+
+  @secured(SecuredType.IS_AUTHENTICATED)
+  @patch('/orders/finishOrder/{id}/{lat}/{lon}', {
+    responses: {
+      '204': {
+        description: 'Order PATCH success',
+      },
+    },
+  })
+  async finishOrder(
+      @param.path.number('id') id: number,
+      @param.path.number('lat') lat: number,
+      @param.path.number('lon') lon: number,
+  ): Promise<void> {
+    const orderToUpdate: Order = await this.orderRepository.findById(id);
+    if (DistanceUtils.distanceFromOrder(orderToUpdate.drop_latitude, orderToUpdate.drop_longitude, lat, lon, 0.5)) {
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      if (orderToUpdate.driver_email != null) {
+        const driverToUpdate: Driver = await this.driverRepository.findById(orderToUpdate.driver_email);
+        const customerToUpdate: Customer = await this.customerRepository.findById(orderToUpdate.customer_email);
+
+        driverToUpdate.status = 0;
+        customerToUpdate.status = 0;
+        orderToUpdate.status = 3;
+
+        await this.customerRepository.updateById(customerToUpdate.email, customerToUpdate);
+        await this.driverRepository.updateById(driverToUpdate.email, driverToUpdate);
+        await this.orderRepository.updateById(orderToUpdate.ID, orderToUpdate);
+      }
+    } else {
+      throw new Error("You are too far away from the drop point in order to finish the order")
+    }
+  }
+
+  @secured(SecuredType.IS_AUTHENTICATED)
+  @patch('/orders/cancelOrder/{id}', {
+    responses: {
+      '204': {
+        description: 'Order PATCH success',
+      },
+    },
+  })
+  async cancelOrder(
+      @param.path.number('id') id: number,
+  ): Promise<void> {
+    const orderToUpdate: Order = await this.orderRepository.findById(id);
+    if(orderToUpdate.driver_email == null){
+      orderToUpdate.status = 4;
+      await this.orderRepository.updateById(id, orderToUpdate);
+    } else {
+      throw new Error("The order has already been accepted and it can't be cancelled anymore");
+    }
   }
 
   @secured(SecuredType.DENY_ALL)
