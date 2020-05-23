@@ -38,6 +38,17 @@ export class Order extends Entity {
   })
   ID?: number;
 
+  @property({
+    type: 'number',
+    required: true,
+  })
+  latitude: number;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  longitude: number;
 
   constructor(data?: Partial<Order>) {
     super(data);

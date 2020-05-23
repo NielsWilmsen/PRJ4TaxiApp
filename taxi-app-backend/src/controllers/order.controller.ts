@@ -3,6 +3,7 @@ import {del, get, getModelSchemaRef, param, patch, post, put, requestBody} from 
 import {Order} from '../models';
 import {OrderRepository} from '../repositories';
 import {secured, SecuredType} from '../auth';
+import {DistanceUtils} from "../utils/DistanceUtils";
 
 export class OrderController {
   constructor(
@@ -51,8 +52,8 @@ export class OrderController {
     return this.orderRepository.count(where);
   }
 
-  @secured(SecuredType.DENY_ALL)
-  @get('/orders', {
+  @secured(SecuredType.PERMIT_ALL)
+  @get('/ordersInRange/{range}/{driversLon}/{driversLat}', {
     responses: {
       '200': {
         description: 'Array of Order model instances',
@@ -68,9 +69,19 @@ export class OrderController {
     },
   })
   async find(
+    @param.path.number('range') range: number,
+    @param.path.number('driversLon') driversLon: number,
+    @param.path.number('driversLat') driversLat: number,
     @param.filter(Order) filter?: Filter<Order>,
   ): Promise<Order[]> {
-    return this.orderRepository.find(filter);
+    const orders: Array<Order> = await this.orderRepository.find(filter);
+    const fittingOrders : Array<Order> = [];
+    orders.forEach(function (value) {
+      if(DistanceUtils.distanceFromOrder(value.latitude, value.longitude, driversLat, driversLon, range)){
+        fittingOrders.push(value);
+      }
+    })
+    return fittingOrders;
   }
 
   @secured(SecuredType.DENY_ALL)
