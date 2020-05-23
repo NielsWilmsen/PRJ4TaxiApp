@@ -157,7 +157,7 @@ export class OrderController {
     await this.orderRepository.updateById(id, order);
   }
 
-  @secured(SecuredType.PERMIT_ALL)
+  @secured(SecuredType.HAS_ROLES, ['driver'])
   @patch('/orders/acceptOrder/{id}/{driverEmail}', {
     responses: {
       '204': {
@@ -180,7 +180,7 @@ export class OrderController {
     await this.orderRepository.updateById(id, orderToUpdate);
   }
 
-  @secured(SecuredType.IS_AUTHENTICATED)
+  @secured(SecuredType.HAS_ROLES, ['driver'])
   @patch('/orders/pickUpCustomer/{id}/{driverLat}/{driverLon}', {
     responses: {
       '204': {
@@ -195,7 +195,7 @@ export class OrderController {
   ): Promise<void> {
     const orderToUpdate:Order = await this.orderRepository.findById(id);
 
-    if(DistanceUtils.distanceFromOrder(orderToUpdate.drop_latitude, orderToUpdate.pick_up_longitude, driverLat, driverLon, 0.5)){
+    if(DistanceUtils.distanceFromOrder(orderToUpdate.pick_up_latitude, orderToUpdate.pick_up_longitude, driverLat, driverLon, 1) && orderToUpdate.status === 1){
       orderToUpdate.status = 2;
       await this.orderRepository.updateById(id, orderToUpdate);
     } else {
@@ -203,7 +203,7 @@ export class OrderController {
     }
   }
 
-  @secured(SecuredType.IS_AUTHENTICATED)
+  @secured(SecuredType.HAS_ROLES, ['driver'])
   @patch('/orders/finishOrder/{id}/{lat}/{lon}', {
     responses: {
       '204': {
@@ -217,7 +217,7 @@ export class OrderController {
       @param.path.number('lon') lon: number,
   ): Promise<void> {
     const orderToUpdate: Order = await this.orderRepository.findById(id);
-    if (DistanceUtils.distanceFromOrder(orderToUpdate.drop_latitude, orderToUpdate.drop_longitude, lat, lon, 0.5)) {
+    if (DistanceUtils.distanceFromOrder(orderToUpdate.drop_latitude, orderToUpdate.drop_longitude, lat, lon, 1) && orderToUpdate.status === 2) {
       // eslint-disable-next-line @typescript-eslint/camelcase
       if (orderToUpdate.driver_email != null) {
         const driverToUpdate: Driver = await this.driverRepository.findById(orderToUpdate.driver_email);
@@ -236,7 +236,7 @@ export class OrderController {
     }
   }
 
-  @secured(SecuredType.IS_AUTHENTICATED)
+  @secured(SecuredType.HAS_ROLES, ['customer'])
   @patch('/orders/cancelOrder/{id}', {
     responses: {
       '204': {
