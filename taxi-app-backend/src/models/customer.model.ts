@@ -32,6 +32,12 @@ export class Customer extends Entity {
   })
   profile_picture_path: string;
 
+  @property({
+    type: 'number',
+    required: true,
+  })
+  status: number;
+
   @hasMany(() => Order, {keyTo: 'customer_email'})
   customerOrders: Order[];
 
