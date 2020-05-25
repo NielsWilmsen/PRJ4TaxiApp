@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A2B3158247AE02B00010DFF /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 0A2B3157247AE02B00010DFF /* SwiftyJSON */; };
 		0AA4C87B2472D95000E09DAB /* TaxiAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA4C87A2472D95000E09DAB /* TaxiAppTests.swift */; };
 		160C9CFD244A006500212123 /* CustomerMainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160C9CFC244A006500212123 /* CustomerMainPageViewController.swift */; };
 		1613B09324407C7C004C4459 /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1613B09224407C7C004C4459 /* ResponseHandler.swift */; };
@@ -79,7 +78,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A2B3158247AE02B00010DFF /* SwiftyJSON in Frameworks */,
 				16545164246ABD67002914D9 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -209,7 +207,6 @@
 			name = TaxiApp;
 			packageProductDependencies = (
 				16545163246ABD67002914D9 /* Alamofire */,
-				0A2B3157247AE02B00010DFF /* SwiftyJSON */,
 			);
 			productName = TaxiApp;
 			productReference = 16FF45A5243B178000FD4F97 /* TaxiApp.app */;
@@ -245,7 +242,6 @@
 			mainGroup = 16FF459C243B178000FD4F97;
 			packageReferences = (
 				16545162246ABD67002914D9 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				0A2B3156247AE02A00010DFF /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = 16FF45A6243B178000FD4F97 /* Products */;
 			projectDirPath = "";
@@ -567,14 +563,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0A2B3156247AE02A00010DFF /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
 		16545162246ABD67002914D9 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -586,11 +574,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0A2B3157247AE02B00010DFF /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0A2B3156247AE02A00010DFF /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
-		};
 		16545163246ABD67002914D9 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 16545162246ABD67002914D9 /* XCRemoteSwiftPackageReference "Alamofire" */;
