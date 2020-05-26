@@ -47,14 +47,13 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
 //        "originalname": "samplePhoto.jpg",
 //        "encoding": "7bit",
 //        "mimetype": "image/jpeg",
-//        "size": "16654"] as [String : String]
-//
-//        let dataImage = image.jpegData(compressionQuality: 1.0)
-//        let path = "/files"
-//        let urlObject = URL(string: <#T##String#>)
+//        "size": "16654"] as [String : Any]
 
+        //let dataImage = image.jpegData(compressionQuality: 1.0)
         
-//        restAPI.upload(dataImage,url,parameters)
+        //restAPI.upload(dataImage!, "/files")
+        
+        
         
         //Just to test, I added an image view to show the image
 //        let myImageView:UIImageView = UIImageView()

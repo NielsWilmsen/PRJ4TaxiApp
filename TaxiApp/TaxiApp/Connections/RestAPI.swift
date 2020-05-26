@@ -1,5 +1,6 @@
 import Foundation
 import Alamofire
+import UIKit
 
 class RestAPI {
     
@@ -106,39 +107,29 @@ class RestAPI {
 //            }
 //     }
 //    }
-//    
-//    func upload(image : Data, params: [String: Any]) {
-//        let urlUploadString = "https://taxiapi.eu-gb.mybluemix.net/files"
-//        let headers: HTTPHeaders =
-//            ["Content-type": "multipart/form-data",
-//            "Accept": "application/json"]
-//        AF.upload(
-//            multipartFormData: { multipartFormData in
-//                for (key, value) in params {
-//                    if let temp = value as? String {
-//            multipartFormData.append(temp.data(using: .utf8)!, withName: key)}
-//
-//                    if value is Int {
-//        multipartFormData.append("(temp)".data(using: .utf8)!, withName: key)}
-//
-//        if let temp = value as? NSArray {
-//            temp.forEach({ element in
-//                let keyObj = key + "[]"
-//                if let string = element as? String {
-//                    multipartFormData.append(string.data(using: .utf8)!, withName: keyObj)
-//                } else
-//                    if element is Int {
-//                        let value = "(num)"
-//                        multipartFormData.append(value.data(using: .utf8)!, withName: keyObj)
-//                }
-//            })
-//        }
-//    }
-//                multipartFormData.append(image, withName: "registerImage", fileName: "registerImage.jpg", mimeType: "image/jpeg")
-//        },
-//            to: urlUploadString, //URL Here
-//            method: .post,
-//            headers: headers)
-//    }
+
+    func upload(_ imageData: Data, _ address: String){
+        let endPoint: String = urlString + address
+        struct HTTPBinResponse: Decodable { let url: String }
+        AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(Data("one".utf8), withName: "one")
+            multipartFormData.append(Data("two".utf8), withName: "two")
+        }, to: endPoint)
+            .responseDecodable(of: HTTPBinResponse.self) { response in
+                debugPrint(response)
+            }
+    }
+    
+    func download(_ address: String, _ picture: String){
+        let endPoint: String = urlString + address + picture
+        AF.download(endPoint).responseData { response in
+            if let data = response.value {
+                let image = UIImage(data: data)!
+                let arrayDictionary : Dictionary <String:Any> = [:]
+                self.responseData?.onSuccess(<#T##response: Dictionary<String, Any>##Dictionary<String, Any>#>)
+            }
+        }
+    }
+    
 }
 
