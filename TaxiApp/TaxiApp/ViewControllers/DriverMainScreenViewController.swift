@@ -4,7 +4,7 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
     
     @IBOutlet weak var orderTableView: UITableView!
     
-    let simpelArray = ["one", "two", "three"]
+    var simpelArray = [Dictionary<String, Any>]()
     
     let restAPI = RestAPI()
     
@@ -21,11 +21,14 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
         
         restAPI.responseData = self
         
+        // Check if the user just logged in or it was already logged in
         if(userEmail != nil && authToken != nil){
             createUser()
+        } else {
+            // Get orders with already logged in user
+            getOrders()
         }
         
-        getOrders()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -50,14 +53,38 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func getOrders(){
-        restAPI.get(User.getUserAuthToken()!, Endpoint.DRIVERORDERS.replacingOccurrences(of: "{id}", with: User.getUserEmail()!))
+        restAPI.get(User.getUserAuthToken()!, Endpoint.DRIVERORDERS.replacingOccurrences(of: "{id}", with: Driver.getUserEmail()!))
     }
     
     func onSuccess(_ response: Dictionary<String, Any>) {
         
         let endpoint = response["endpoint"] as! String
         
-        switch endpoint{
+        if(userEmail == nil) {
+            userEmail = Driver.getUserEmail()!
+        }
+        
+        switch endpoint {
+        case Endpoint.DRIVERS + userEmail!:
+            let firstName: String = response["first_name"] as! String
+            let lastName: String = response["last_name"] as! String
+            let password: String = response["password"] as! String
+            
+            let driver = Driver(firstName, lastName, userEmail!, password, authToken!)
+
+            Driver.store(driver)
+            
+            getOrders()
+            
+        case Endpoint.DRIVERORDERS.replacingOccurrences(of: "{id}", with: Driver.getUserEmail()!):
+            for order in response {
+                //simpelArray.append()
+            }
+        default: break
+        }
+        
+        /*
+        switch (test){
         case Endpoint.CUSTOMERLOGIN:
             let firstName: String = response["first_name"] as! String
             let lastName: String = response["last_name"] as! String
@@ -67,15 +94,19 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
             
             Driver.store(driver)
             
+            getOrders()
+            
         case Endpoint.DRIVERORDERS.replacingOccurrences(of: "{id}", with: User.getUserEmail()!):
             debugPrint(response)
         default:
             break;
         }
+ */
         
     }
     
-    func onFailure(_ response: Dictionary<String, Any>) {
+    func onFailure() {
+        print("--FAILURE--")
         
     }
     

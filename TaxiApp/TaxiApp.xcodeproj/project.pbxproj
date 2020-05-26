@@ -20,6 +20,7 @@
 		16D376D624645D3B00CF936F /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D376D524645D3B00CF936F /* Customer.swift */; };
 		16D376D824645F3E00CF936F /* Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D376D724645F3E00CF936F /* Driver.swift */; };
 		16D376DA246A90B400CF936F /* ConfirmOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D376D9246A90B400CF936F /* ConfirmOrderViewController.swift */; };
+		16DDCB53247D171F002582BA /* OrderDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DDCB52247D171F002582BA /* OrderDetailsViewController.swift */; };
 		16FC211B24406A23002C9315 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FC211A24406A23002C9315 /* ToastView.swift */; };
 		16FF45A9243B178000FD4F97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FF45A8243B178000FD4F97 /* AppDelegate.swift */; };
 		16FF45AD243B178000FD4F97 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FF45AC243B178000FD4F97 /* LoginViewController.swift */; };
@@ -54,6 +55,7 @@
 		16D376D524645D3B00CF936F /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		16D376D724645F3E00CF936F /* Driver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
 		16D376D9246A90B400CF936F /* ConfirmOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOrderViewController.swift; sourceTree = "<group>"; };
+		16DDCB52247D171F002582BA /* OrderDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsViewController.swift; sourceTree = "<group>"; };
 		16FC211A24406A23002C9315 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		16FC211C24407167002C9315 /* RestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPI.swift; sourceTree = "<group>"; };
 		16FF45A5243B178000FD4F97 /* TaxiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaxiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +116,7 @@
 				16FF45BC243B25E100FD4F97 /* CustomerRegisterViewController.swift */,
 				160C9CFC244A006500212123 /* CustomerMainPageViewController.swift */,
 				1654516B246D77EC002914D9 /* DriverMainScreenViewController.swift */,
+				16DDCB52247D171F002582BA /* OrderDetailsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				165451722473E808002914D9 /* Endpoint.swift in Sources */,
 				16FF45A9243B178000FD4F97 /* AppDelegate.swift in Sources */,
 				1654516A246ADEAE002914D9 /* User.swift in Sources */,
+				16DDCB53247D171F002582BA /* OrderDetailsViewController.swift in Sources */,
 				16FC211B24406A23002C9315 /* ToastView.swift in Sources */,
 				16D376D624645D3B00CF936F /* Customer.swift in Sources */,
 				16FF45BD243B25E100FD4F97 /* CustomerRegisterViewController.swift in Sources */,

@@ -21,7 +21,7 @@ class User {
     static func store(_ user: User) {
         UserDefaults.standard.set(String(describing: type(of: user)), forKey: "User")
         UserDefaults.standard.set(user.email, forKey: "Email")
-        UserDefaults.standard.set(user.authToken, forKey: "")
+        UserDefaults.standard.set(user.authToken, forKey: "AuthToken")
     }
     
     static func getUserType() -> String?{

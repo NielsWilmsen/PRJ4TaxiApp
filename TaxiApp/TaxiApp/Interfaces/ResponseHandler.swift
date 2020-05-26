@@ -6,5 +6,5 @@ protocol ResponseHandler {
     func onSuccess(_ response: Dictionary<String, Any>)
     
     // If the response code is not ok
-    func onFailure(_ response: Dictionary<String, Any>)
+    func onFailure()
 }

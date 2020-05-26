@@ -32,10 +32,11 @@ class DriverRegisterViewController: UIViewController, ResponseHandler {
         
         if(name.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty || brand.isEmpty || model.isEmpty || color.isEmpty || licencePlate.isEmpty){
             print("Error! Some values are empty")
+            ToastView.shared.short(self.view, txt_msg: "Please enter all fields!")
             return
         }
         
-        print("Performing registering with name: " + name + " " + lastName + ", email: " + email + ", password: " + password)
+        print("Performing registering with name: " + name + ", lastname " + lastName + ", email: " + email + ", password: " + password)
         
         let restAPI = RestAPI()
         
@@ -54,9 +55,11 @@ class DriverRegisterViewController: UIViewController, ResponseHandler {
     
     func onSuccess(_ response: Dictionary<String, Any>) {
         print("---- SUCCESS ----")
+        navigationController?.popToRootViewController(animated: true)
     }
     
-    func onFailure(_ response: Dictionary<String, Any>) {
+    func onFailure() {
         print("---- FAILURE ----")
+        ToastView.shared.short(self.view, txt_msg: "Error! Could not register")
     }
 }
