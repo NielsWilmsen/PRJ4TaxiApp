@@ -10,7 +10,7 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
     @IBOutlet weak var passwordText: UITextField!
     
     //Test purpose
-    @IBOutlet var profilePicture: [UIImageView]!
+    @IBOutlet var profilePicture: UIImageView!
     let restAPI = RestAPI()
     
     override func viewDidLoad() {
@@ -18,7 +18,7 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
         
         restAPI.responseData = self
         
-        restAPI.download("/files", "/bug.png")
+        restAPI.download("/files", "/radu.jpg")
         
         // Dismiss the keyboard when a user taps anywhere
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard)))
@@ -41,10 +41,8 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
             print("No image found")
             return
         }
-        
-        let restAPI = RestAPI()
-        
-        
+//
+//        let restAPI = RestAPI()
         
 //        let parameters = [
 //        "fieldname": "file",
@@ -56,15 +54,6 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
         //let dataImage = image.jpegData(compressionQuality: 1.0)
         
         //restAPI.upload(dataImage!, "/files")
-                
-        //Just to test, I added an image view to show the image
-//        let myImageView:UIImageView = UIImageView()
-//        myImageView.contentMode = UIView.ContentMode.scaleAspectFit
-//        myImageView.frame.size.width = 200
-//        myImageView.frame.size.height = 200
-//        myImageView.center = self.view.center
-//        myImageView.image = image
-//        view.addSubview(myImageView)
     }
     
     @IBAction func register(_ sender: UIButton) {
@@ -75,6 +64,7 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
         let lastName: String = lastNameText.text!
         let email: String = emailText.text!
         let password: String = passwordText.text!
+        let pictureName: String = email + ".jpg"
         
         if(name.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty){
             print("Error! Some values are empty")
@@ -82,13 +72,14 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
             return
         }
         
-        print("Performing registering with name: " + name + " " + lastName + ", email: " + email + ", password: " + password)
+        print("Performing registering with name: " + name + " " + lastName + ", email: " + email + ", password: " + password + ", picture: " + pictureName + ", status: " + "0")
         
         let restAPI = RestAPI()
         
         restAPI.responseData = self
         
-        let parameters = ["first_name": name, "last_name": lastName, "email": email, "password": password] as [String : String]
+        //change the status in the back-end
+        let parameters = ["first_name": name, "last_name": lastName, "email": email, "password": password, "profile_picture_path": pictureName, "status": "0"] as [String : String]
         
         restAPI.post(parameters, Endpoint.CUSTOMERS)
     }
@@ -107,14 +98,13 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
         if(response["image"] != nil){
             let image = response["image"] as? UIImage
             
-                    let myImageView:UIImageView = UIImageView()
-                    myImageView.contentMode = UIView.ContentMode.scaleAspectFit
-                    myImageView.frame.size.width = 200
-                    myImageView.frame.size.height = 200
-                    myImageView.center = self.view.center
-                    myImageView.image = image
-                    view.addSubview(myImageView)
-
+            let myImageView:UIImageView = UIImageView()
+            myImageView.contentMode = UIView.ContentMode.scaleAspectFit
+            myImageView.frame.size.width = 100
+            myImageView.frame.size.height = 100
+//            myImageView.topAnchor 
+            myImageView.image = image
+            view.addSubview(myImageView)
         }
         
         //navigationController?.popToRootViewController(animated: true)
