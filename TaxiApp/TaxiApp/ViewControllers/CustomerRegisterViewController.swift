@@ -16,6 +16,10 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        restAPI.responseData = self
+        
+        restAPI.download("/files", "/bug.png")
+        
         // Dismiss the keyboard when a user taps anywhere
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard)))
     }
@@ -40,7 +44,7 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
         
         let restAPI = RestAPI()
         
-        restAPI.responseData = self
+        
         
 //        let parameters = [
 //        "fieldname": "file",
@@ -52,9 +56,7 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
         //let dataImage = image.jpegData(compressionQuality: 1.0)
         
         //restAPI.upload(dataImage!, "/files")
-        
-        
-        
+                
         //Just to test, I added an image view to show the image
 //        let myImageView:UIImageView = UIImageView()
 //        myImageView.contentMode = UIView.ContentMode.scaleAspectFit
@@ -101,7 +103,21 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
     
     func onSuccess(_ response: Dictionary<String, Any>) {
         print("---- SUCCESS ----")
-        navigationController?.popToRootViewController(animated: true)
+        
+        if(response["image"] != nil){
+            let image = response["image"] as? UIImage
+            
+                    let myImageView:UIImageView = UIImageView()
+                    myImageView.contentMode = UIView.ContentMode.scaleAspectFit
+                    myImageView.frame.size.width = 200
+                    myImageView.frame.size.height = 200
+                    myImageView.center = self.view.center
+                    myImageView.image = image
+                    view.addSubview(myImageView)
+
+        }
+        
+        //navigationController?.popToRootViewController(animated: true)
     }
     
     func onFailure() {

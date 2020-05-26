@@ -139,8 +139,9 @@ class RestAPI {
         AF.download(endPoint).responseData { response in
             if let data = response.value {
                 let image = UIImage(data: data)!
-                let arrayDictionary : Dictionary <String:Any> = [:]
-                self.responseData?.onSuccess(<#T##response: Dictionary<String, Any>##Dictionary<String, Any>#>)
+                var arrayDictionary: Dictionary<String, Any> = [:]
+                arrayDictionary["image"] = image
+                self.responseData?.onSuccess(arrayDictionary)
             }
         }
     }

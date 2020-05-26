@@ -42,7 +42,7 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OrderRow", for: indexPath)
         
-        cell.textLabel!.text = simpelArray[indexPath.row]
+        //cell.textLabel!.text = simpelArray[]
         
         return cell
     }
