@@ -3,7 +3,7 @@ import {del, get, getModelSchemaRef, param, patch, post, put, requestBody} from 
 import {Customer, Driver, Order} from '../models';
 import {CustomerRepository, DriverRepository, OrderRepository} from '../repositories';
 import {secured, SecuredType} from '../auth';
-import {DistanceUtils} from "../utils/DistanceUtils";
+import {DistanceUtils} from '../utils/DistanceUtils';
 
 export class OrderController {
   constructor(
@@ -171,6 +171,7 @@ export class OrderController {
   ): Promise<void> {
     const orderToUpdate: Order = await this.findById(id);
     const driverToUpdate: Driver = await this.driverRepository.findById(driverEmail);
+    //0 = Order not assigned | 1 = Order awaits driver for pickup | 2 = Order is ongoing | 3 = Order is finalised | 4 = Order is cancelled
     orderToUpdate.status = 1;
     // eslint-disable-next-line @typescript-eslint/camelcase
     orderToUpdate.driver_email = driverEmail;
@@ -196,6 +197,7 @@ export class OrderController {
     const orderToUpdate:Order = await this.orderRepository.findById(id);
 
     if(DistanceUtils.distanceFromOrder(orderToUpdate.pick_up_latitude, orderToUpdate.pick_up_longitude, driverLat, driverLon, 1) && orderToUpdate.status === 1){
+      //0 = Order not assigned | 1 = Order awaits driver for pickup | 2 = Order is ongoing | 3 = Order is finalised | 4 = Order is cancelled
       orderToUpdate.status = 2;
       await this.orderRepository.updateById(id, orderToUpdate);
     } else {
@@ -225,6 +227,7 @@ export class OrderController {
 
         driverToUpdate.status = 0;
         customerToUpdate.status = 0;
+        //0 = Order not assigned | 1 = Order awaits driver for pickup | 2 = Order is ongoing | 3 = Order is finalised | 4 = Order is cancelled
         orderToUpdate.status = 3;
 
         await this.customerRepository.updateById(customerToUpdate.email, customerToUpdate);
@@ -248,8 +251,14 @@ export class OrderController {
       @param.path.number('id') id: number,
   ): Promise<void> {
     const orderToUpdate: Order = await this.orderRepository.findById(id);
-    if(orderToUpdate.driver_email == null){
+    if(orderToUpdate.driver_email == null) {
+      const customerToUpdate: Customer = await this.customerRepository.findById(orderToUpdate.customer_email);
+
+      //0 = Order not assigned | 1 = Order awaits driver for pickup | 2 = Order is ongoing | 3 = Order is finalised | 4 = Order is cancelled
       orderToUpdate.status = 4;
+      customerToUpdate.status = 0;
+
+      await this.customerRepository.updateById(orderToUpdate.customer_email, customerToUpdate);
       await this.orderRepository.updateById(id, orderToUpdate);
     } else {
       throw new Error("The order has already been accepted and it can't be cancelled anymore");
