@@ -47,7 +47,7 @@ class RestAPI {
                     var count: Int = 0
                     if let array = JSON as? NSArray {
                         for item in array {
-                            parsedResponse["object \(count)"] = item as! Dictionary<String, Any>
+                            parsedResponse["\(count)"] = item as! Dictionary<String, Any>
                             count += 1
                         }
                     } else {
