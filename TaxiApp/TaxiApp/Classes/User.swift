@@ -19,37 +19,26 @@ class User {
     }
     
     static func store(_ user: User) {
-        
         UserDefaults.standard.set(String(describing: type(of: user)), forKey: "User")
-        
-        /*
-        do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: user, requiringSecureCoding: true)
-            UserDefaults.standard.set(data, forKey: "User")
-        } catch let error {
-            print(error)
-        }
- */
+        UserDefaults.standard.set(user.email, forKey: "Email")
+        UserDefaults.standard.set(user.authToken, forKey: "")
     }
     
-    static func get() -> String?{
-        
-        /*
-        guard let user = UserDefaults.standard.data(forKey: "User") else {
-            return nil
-        }
-        do {
-            let data = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(user) as? User
-            return data
-        } catch let error {
-            print(error)
-        }
- */
-        
+    static func getUserType() -> String?{
         return UserDefaults.standard.string(forKey: "User")
+    }
+    
+    static func getUserEmail() -> String?{
+        return UserDefaults.standard.string(forKey: "Email")
+    }
+    
+    static func getUserAuthToken() -> String?{
+        return UserDefaults.standard.string(forKey: "AuthToken")
     }
     
     static func delete() {
         UserDefaults.standard.removeObject(forKey: "User")
+        UserDefaults.standard.removeObject(forKey: "Email")
+        UserDefaults.standard.removeObject(forKey: "AuthToken")
     }
 }

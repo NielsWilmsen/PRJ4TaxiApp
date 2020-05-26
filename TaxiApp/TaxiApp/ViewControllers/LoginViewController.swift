@@ -19,6 +19,8 @@ class LoginViewController: UIViewController, ResponseHandler {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        
         // Dismiss the keyboard when a user taps anywhere
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard)))
         
@@ -79,12 +81,12 @@ class LoginViewController: UIViewController, ResponseHandler {
         }
     }
     
-    func onSuccess(_ response: NSDictionary) {
+    func onSuccess(_ response: Dictionary<String, Any>) {
         print("---- SUCCESS ----")
-        
-        authToken = response.object(forKey: "token") as? String
-        userEmail = response.object(forKey: "email") as? String
-                
+            
+        authToken = response["token"] as? String
+        userEmail = response["email"] as? String
+                    
         performSegue(withIdentifier: selectedUser.rawValue + "Login", sender: self)
     }
     
@@ -97,13 +99,14 @@ class LoginViewController: UIViewController, ResponseHandler {
             vc.userEmail = self.userEmail
         case "DriverLogin":
             let vc = segue.destination as! DriverMainScreenViewController
-            
+            vc.authToken = self.authToken
+            vc.userEmail = self.userEmail
         default:
             break
         }
     }
     
-    func onFailure(_ response: NSDictionary) {
+    func onFailure(_ response: Dictionary<String, Any>) {
         print("---- FAILURE ----")
     }
     

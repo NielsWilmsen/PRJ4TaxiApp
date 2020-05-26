@@ -29,6 +29,12 @@ export class Driver extends Entity {
   })
   password: string;
 
+  @property({
+    type: 'number',
+    required: true,
+  })
+  status: number;
+
   @hasMany(() => Order, {keyTo: 'driver_email'})
   driverOrders: Order[];
 

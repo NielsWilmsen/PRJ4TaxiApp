@@ -14,6 +14,7 @@
 		16545164246ABD67002914D9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 16545163246ABD67002914D9 /* Alamofire */; };
 		1654516A246ADEAE002914D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16545169246ADEAE002914D9 /* User.swift */; };
 		1654516C246D77EC002914D9 /* DriverMainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654516B246D77EC002914D9 /* DriverMainScreenViewController.swift */; };
+		165451722473E808002914D9 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165451712473E808002914D9 /* Endpoint.swift */; };
 		16BE6B0A243CBE2200879A7C /* DriverRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */; };
 		16D376D424645AAB00CF936F /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D376D324645AAB00CF936F /* Order.swift */; };
 		16D376D624645D3B00CF936F /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D376D524645D3B00CF936F /* Customer.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01181030247C00F0002F599F /* TaxiApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TaxiApp.entitlements; sourceTree = "<group>"; };
 		0AA4C8782472D95000E09DAB /* TaxiAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaxiAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AA4C87A2472D95000E09DAB /* TaxiAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxiAppTests.swift; sourceTree = "<group>"; };
 		0AA4C87C2472D95000E09DAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -46,6 +48,7 @@
 		1613B09224407C7C004C4459 /* ResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHandler.swift; sourceTree = "<group>"; };
 		16545169246ADEAE002914D9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1654516B246D77EC002914D9 /* DriverMainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverMainScreenViewController.swift; sourceTree = "<group>"; };
+		165451712473E808002914D9 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverRegisterViewController.swift; sourceTree = "<group>"; };
 		16D376D324645AAB00CF936F /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		16D376D524645D3B00CF936F /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
@@ -152,6 +155,7 @@
 		16FF45A7243B178000FD4F97 /* TaxiApp */ = {
 			isa = PBXGroup;
 			children = (
+				01181030247C00F0002F599F /* TaxiApp.entitlements */,
 				16545168246ADDE8002914D9 /* Connections */,
 				16545167246ADDE0002914D9 /* Interfaces */,
 				16545166246ADDD4002914D9 /* ViewControllers */,
@@ -162,6 +166,7 @@
 				16FF45B3243B178200FD4F97 /* LaunchScreen.storyboard */,
 				16FF45B6243B178200FD4F97 /* Info.plist */,
 				16FC211A24406A23002C9315 /* ToastView.swift */,
+				165451712473E808002914D9 /* Endpoint.swift */,
 			);
 			path = TaxiApp;
 			sourceTree = "<group>";
@@ -286,6 +291,7 @@
 				16D376D424645AAB00CF936F /* Order.swift in Sources */,
 				16D376D824645F3E00CF936F /* Driver.swift in Sources */,
 				16FF45AD243B178000FD4F97 /* LoginViewController.swift in Sources */,
+				165451722473E808002914D9 /* Endpoint.swift in Sources */,
 				16FF45A9243B178000FD4F97 /* AppDelegate.swift in Sources */,
 				1654516A246ADEAE002914D9 /* User.swift in Sources */,
 				16FC211B24406A23002C9315 /* ToastView.swift in Sources */,
@@ -332,8 +338,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7N96PQTZC6;
+				DEVELOPMENT_TEAM = 4XPP4P6AWR;
 				INFOPLIST_FILE = TaxiAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -353,8 +360,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7N96PQTZC6;
+				DEVELOPMENT_TEAM = 4XPP4P6AWR;
 				INFOPLIST_FILE = TaxiAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -488,14 +496,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TaxiApp/TaxiApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7N96PQTZC6;
+				DEVELOPMENT_TEAM = KH7BD93PMV;
 				INFOPLIST_FILE = TaxiApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nl.fontys.prj4.TaxiApp3154;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.fontys.apps20.G10TaxiApp3154;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -506,14 +515,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TaxiApp/TaxiApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7N96PQTZC6;
+				DEVELOPMENT_TEAM = KH7BD93PMV;
 				INFOPLIST_FILE = TaxiApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nl.fontys.prj4.TaxiApp3154;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.fontys.apps20.G10TaxiApp3154;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

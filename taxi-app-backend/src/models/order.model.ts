@@ -38,6 +38,36 @@ export class Order extends Entity {
   })
   ID?: number;
 
+  @property({
+    type: 'number',
+    required: true,
+  })
+  pick_up_latitude: number;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  pick_up_longitude: number;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  drop_latitude: number;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  drop_longitude: number;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  status: number;
+
 
   constructor(data?: Partial<Order>) {
     super(data);

@@ -37,15 +37,33 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
             print("No image found")
             return
         }
+        
+        let restAPI = RestAPI()
+        
+        restAPI.responseData = self
+        
+//        let parameters = [
+//        "fieldname": "file",
+//        "originalname": "samplePhoto.jpg",
+//        "encoding": "7bit",
+//        "mimetype": "image/jpeg",
+//        "size": "16654"] as [String : String]
+//
+//        let dataImage = image.jpegData(compressionQuality: 1.0)
+//        let path = "/files"
+//        let urlObject = URL(string: <#T##String#>)
 
+        
+//        restAPI.upload(dataImage,url,parameters)
+        
         //Just to test, I added an image view to show the image
-        let myImageView:UIImageView = UIImageView()
-        myImageView.contentMode = UIView.ContentMode.scaleAspectFit
-        myImageView.frame.size.width = 200
-        myImageView.frame.size.height = 200
-        myImageView.center = self.view.center
-        myImageView.image = image
-        view.addSubview(myImageView)
+//        let myImageView:UIImageView = UIImageView()
+//        myImageView.contentMode = UIView.ContentMode.scaleAspectFit
+//        myImageView.frame.size.width = 200
+//        myImageView.frame.size.height = 200
+//        myImageView.center = self.view.center
+//        myImageView.image = image
+//        view.addSubview(myImageView)
     }
     
     @IBAction func register(_ sender: UIButton) {
@@ -71,9 +89,7 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
         
         let parameters = ["first_name": name, "last_name": lastName, "email": email, "password": password] as [String : String]
         
-        restAPI.post(parameters, "/customers")
-        
-        
+        restAPI.post(parameters, Endpoint.CUSTOMERS)
     }
     
     @objc func dismissKeyboard(){
@@ -84,11 +100,11 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
         performSegue(withIdentifier: "driverRegister", sender: self)
     }
     
-    func onSuccess(_ response: NSDictionary) {
+    func onSuccess(_ response: Dictionary<String, Any>) {
         print("---- SUCCESS ----")
     }
     
-    func onFailure(_ response: NSDictionary) {
+    func onFailure(_ response: Dictionary<String, Any>) {
         print("---- FAILURE ----")
         
     }
