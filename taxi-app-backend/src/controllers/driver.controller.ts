@@ -49,7 +49,7 @@ export class DriverController {
     };
   }
 
-  @secured(SecuredType.DENY_ALL)
+  @secured(SecuredType.PERMIT_ALL)
   @post('/drivers', {
     responses: {
       '200': {
