@@ -39,6 +39,7 @@ class LoginViewController: UIViewController, ResponseHandler {
         
         if(name.isEmpty || password.isEmpty){
             print("Error! Some values are empty")
+            ToastView.shared.short(self.view, txt_msg: "Some values are empty!")
             return
         }
         
@@ -106,8 +107,9 @@ class LoginViewController: UIViewController, ResponseHandler {
         }
     }
     
-    func onFailure(_ response: Dictionary<String, Any>) {
+    func onFailure() {
         print("---- FAILURE ----")
+        ToastView.shared.short(self.view, txt_msg: "Login failed!")
     }
     
     func match(_ a: String, _ b: String) -> Bool{

@@ -37,7 +37,7 @@ class ConfirmOrderViewController: UIViewController, ResponseHandler {
         
     }
     
-    func onFailure(_ response: Dictionary<String, Any>) {
+    func onFailure() {
         
     }
     

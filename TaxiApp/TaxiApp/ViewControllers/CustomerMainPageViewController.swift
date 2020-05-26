@@ -220,8 +220,8 @@ class CustomerMainPageViewController: UIViewController, MKMapViewDelegate, Respo
         performSegue(withIdentifier: "CustomerLoggedOut", sender: self)
     }
     
-    func onFailure(_ response: Dictionary<String, Any>) {
-        print("FAILURE : " + response.description)
+    func onFailure() {
+        
     }
 }
 

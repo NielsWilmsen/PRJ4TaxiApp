@@ -22,7 +22,8 @@ class RestAPI {
                     parsedResponse["endpoint"] = response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: "")
                     self.responseData?.onSuccess(parsedResponse)
                 case let .failure(error):
-                    print(error)
+                    debugPrint(error)
+                    self.responseData?.onFailure()
                 }
         }
     }
@@ -40,11 +41,23 @@ class RestAPI {
                 switch response.result {
                 case .success(let JSON):
                     print("Get request successful")
-                    var parsedResponse = JSON as! Dictionary<String, Any>
+                    
+                    var parsedResponse: Dictionary<String, Any> = [:]
+                    var count: Int = 0
+                    if let array = JSON as? NSArray {
+                        for item in array {
+                            parsedResponse["object \(count)"] = item as! Dictionary<String, Any>
+                            count += 1
+                        }
+                    } else {
+                        parsedResponse = JSON as! Dictionary<String, Any>
+                    }
+                    
                     parsedResponse["endpoint"] = response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: "")
                     self.responseData?.onSuccess(parsedResponse)
                 case let .failure(error):
                     debugPrint(error)
+                    self.responseData?.onFailure()
                 }
         }
     }
@@ -65,7 +78,8 @@ class RestAPI {
                     parsedResponse["endpoint"] = response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: "")
                     self.responseData?.onSuccess(parsedResponse)
                 case let .failure(error):
-                    print(error)
+                    debugPrint(error)
+                    self.responseData?.onFailure()
                 }
         }
     }

@@ -23,14 +23,14 @@ open class ToastView: UILabel {
         backView.backgroundColor = white
         view.addSubview(backView)
         
-        overlayView.frame = CGRect(x: 0, y: 0, width: view.frame.width - 60  , height: 50)
+        overlayView.frame = CGRect(x: 0, y: 0, width: view.frame.width - 60  , height: 40)
         overlayView.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height - 100)
         overlayView.backgroundColor = UIColor.black
         overlayView.clipsToBounds = true
         overlayView.layer.cornerRadius = 10
         overlayView.alpha = 0
         
-        lbl.frame = CGRect(x: 0, y: 0, width: overlayView.frame.width, height: 50)
+        lbl.frame = CGRect(x: 0, y: 0, width: overlayView.frame.width, height: 40)
         lbl.numberOfLines = 0
         lbl.textColor = UIColor.white
         lbl.center = overlayView.center

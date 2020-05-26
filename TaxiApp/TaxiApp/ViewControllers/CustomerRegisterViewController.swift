@@ -77,7 +77,7 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
         
         if(name.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty){
             print("Error! Some values are empty")
-            ToastView.shared.short(self.view, txt_msg: "Error! Some values are empty")
+            ToastView.shared.short(self.view, txt_msg: "Please enter all fields!")
             return
         }
         
@@ -102,10 +102,11 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
     
     func onSuccess(_ response: Dictionary<String, Any>) {
         print("---- SUCCESS ----")
+        navigationController?.popToRootViewController(animated: true)
     }
     
-    func onFailure(_ response: Dictionary<String, Any>) {
+    func onFailure() {
         print("---- FAILURE ----")
-        
+        ToastView.shared.short(self.view, txt_msg: "Error! Could not register")
     }
 }
