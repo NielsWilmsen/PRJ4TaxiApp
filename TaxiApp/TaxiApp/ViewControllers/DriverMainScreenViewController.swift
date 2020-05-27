@@ -4,12 +4,14 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
     
     @IBOutlet weak var orderTableView: UITableView!
     
-    let simpelArray = ["one", "two", "three"]
+    var orderArray = [Int: Dictionary<String, Any>]()
     
     let restAPI = RestAPI()
     
     var userEmail: String!
     var authToken: String!
+    
+    var selectedOrder: Order!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,11 +23,14 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
         
         restAPI.responseData = self
         
+        // Check if the user just logged in or it was already logged in
         if(userEmail != nil && authToken != nil){
             createUser()
+        } else {
+            // Get orders with already logged in user
+            getOrders()
         }
         
-        getOrders()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -33,50 +38,86 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return simpelArray.count
+        return orderArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OrderRow", for: indexPath)
         
-        cell.textLabel!.text = simpelArray[indexPath.row]
-        
+        cell.textLabel!.text = (orderArray[indexPath.row]!["pick_up_point"] as! String)
+                
         return cell
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        switch segue.identifier {
+        case "OrderDetails":
+            let vc = segue.destination as! OrderDetailsViewController
+            vc.order = self.selectedOrder
+        default:
+            break
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt IndexPath: IndexPath){
+        print(orderArray[IndexPath.row]!["pick_up_point"] as! String)
+        
+        let order = orderArray[IndexPath.row]!
+        let pickup = order["pick_up_point"] as! String
+        let destination = order["destination"] as! String
+        let customer = order["customer_email"] as! String
+        let driver = order["driver_email"] as! String
+        let id = order["ID"] as! Int
+        let fare = order["fare"] as! Int
+        
+        selectedOrder = Order(pickup, destination, driver, customer, fare, id)
+        
+        performSegue(withIdentifier: "OrderDetails", sender: self)
+    }
+    
     func createUser(){
-        print("\(authToken!), \(userEmail!)")
         restAPI.get(authToken!, Endpoint.DRIVERS + userEmail!)
     }
     
     func getOrders(){
-        restAPI.get(User.getUserAuthToken()!, Endpoint.DRIVERORDERS.replacingOccurrences(of: "{id}", with: User.getUserEmail()!))
+        restAPI.get(User.getUserAuthToken()!, Endpoint.DRIVERORDERS.replacingOccurrences(of: "{id}", with: Driver.getUserEmail()!))
     }
     
     func onSuccess(_ response: Dictionary<String, Any>) {
         
         let endpoint = response["endpoint"] as! String
         
-        switch endpoint{
-        case Endpoint.CUSTOMERLOGIN:
+        if(userEmail == nil) {
+            userEmail = Driver.getUserEmail()!
+        }
+        
+        switch endpoint {
+        case Endpoint.DRIVERS + userEmail!:
             let firstName: String = response["first_name"] as! String
             let lastName: String = response["last_name"] as! String
             let password: String = response["password"] as! String
             
             let driver = Driver(firstName, lastName, userEmail!, password, authToken!)
-            
+
             Driver.store(driver)
             
-        case Endpoint.DRIVERORDERS.replacingOccurrences(of: "{id}", with: User.getUserEmail()!):
-            debugPrint(response)
-        default:
-            break;
+            getOrders()
+            
+        case Endpoint.DRIVERORDERS.replacingOccurrences(of: "{id}", with: Driver.getUserEmail()!):
+            for order in response {
+                if(!order.key.elementsEqual("endpoint")){
+                    orderArray[Int(order.key)!] = (order.value as! Dictionary<String, Any>)
+                }
+            }
+            self.orderTableView.reloadData()
+            
+        default: break
         }
-        
     }
     
-    func onFailure(_ response: Dictionary<String, Any>) {
-        
+    func onFailure() {
+        print("--FAILURE--")
     }
     
     @IBAction func Logout(_ sender: Any) {

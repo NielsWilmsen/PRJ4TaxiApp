@@ -1,28 +1,28 @@
 import {
-  MethodDecoratorFactory,
-  inject,
-  CoreBindings,
-  Constructor,
-  MetadataInspector,
-  Provider,
-  ValueOrPromise,
-  Getter,
-  Setter,
   BindingKey,
+  Constructor,
+  CoreBindings,
+  Getter,
+  inject,
+  MetadataInspector,
+  MethodDecoratorFactory,
+  Provider,
+  Setter,
+  ValueOrPromise,
 } from '@loopback/core';
 import {
-  AUTHENTICATION_METADATA_KEY,
-  AuthenticationMetadata,
-  AuthenticationBindings,
   AuthenticateFn,
+  AUTHENTICATION_METADATA_KEY,
+  AuthenticationBindings,
+  AuthenticationMetadata,
   AuthenticationStrategy,
 } from '@loopback/authentication';
-import {UserProfile, securityId} from '@loopback/security';
+import {securityId, UserProfile} from '@loopback/security';
 import {StrategyAdapter} from '@loopback/authentication-passport';
 import {AuthMetadataProvider} from '@loopback/authentication/dist/providers/auth-metadata.provider';
-import {DriverRepository, CustomerRepository} from './repositories';
+import {CustomerRepository, DriverRepository} from './repositories';
 import {repository} from '@loopback/repository';
-import {Strategy as JwtStrategy, ExtractJwt} from 'passport-jwt';
+import {ExtractJwt, Strategy as JwtStrategy} from 'passport-jwt';
 import {HttpErrors, Request} from '@loopback/rest';
 import {Customer, Driver} from './models';
 
@@ -158,9 +158,9 @@ export class MyAuthAuthenticationStrategyProvider implements Provider<Authentica
     if (type === SecuredType.HAS_ROLES && roles.length) {
       var userRole;
       if(await this.driverRepository.find({where: {email: username}})){
-        userRole = "customer";
+        userRole = 'driver';
       } else if(await this.customerRepository.find({where: {email: username}})){
-        userRole = "driver";
+        userRole = 'customer';
       } else {
         throw new HttpErrors.BadRequest("Invalid_Token");
       }

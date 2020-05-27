@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A2B3158247AE02B00010DFF /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 0A2B3157247AE02B00010DFF /* SwiftyJSON */; };
 		0AA4C87B2472D95000E09DAB /* TaxiAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA4C87A2472D95000E09DAB /* TaxiAppTests.swift */; };
 		160C9CFD244A006500212123 /* CustomerMainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160C9CFC244A006500212123 /* CustomerMainPageViewController.swift */; };
 		1613B09324407C7C004C4459 /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1613B09224407C7C004C4459 /* ResponseHandler.swift */; };
@@ -21,6 +20,7 @@
 		16D376D624645D3B00CF936F /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D376D524645D3B00CF936F /* Customer.swift */; };
 		16D376D824645F3E00CF936F /* Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D376D724645F3E00CF936F /* Driver.swift */; };
 		16D376DA246A90B400CF936F /* ConfirmOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D376D9246A90B400CF936F /* ConfirmOrderViewController.swift */; };
+		16DDCB53247D171F002582BA /* OrderDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DDCB52247D171F002582BA /* OrderDetailsViewController.swift */; };
 		16FC211B24406A23002C9315 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FC211A24406A23002C9315 /* ToastView.swift */; };
 		16FF45A9243B178000FD4F97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FF45A8243B178000FD4F97 /* AppDelegate.swift */; };
 		16FF45AD243B178000FD4F97 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FF45AC243B178000FD4F97 /* LoginViewController.swift */; };
@@ -55,6 +55,7 @@
 		16D376D524645D3B00CF936F /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		16D376D724645F3E00CF936F /* Driver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
 		16D376D9246A90B400CF936F /* ConfirmOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOrderViewController.swift; sourceTree = "<group>"; };
+		16DDCB52247D171F002582BA /* OrderDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsViewController.swift; sourceTree = "<group>"; };
 		16FC211A24406A23002C9315 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		16FC211C24407167002C9315 /* RestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPI.swift; sourceTree = "<group>"; };
 		16FF45A5243B178000FD4F97 /* TaxiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaxiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,7 +80,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A2B3158247AE02B00010DFF /* SwiftyJSON in Frameworks */,
 				16545164246ABD67002914D9 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -116,6 +116,7 @@
 				16FF45BC243B25E100FD4F97 /* CustomerRegisterViewController.swift */,
 				160C9CFC244A006500212123 /* CustomerMainPageViewController.swift */,
 				1654516B246D77EC002914D9 /* DriverMainScreenViewController.swift */,
+				16DDCB52247D171F002582BA /* OrderDetailsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -209,7 +210,6 @@
 			name = TaxiApp;
 			packageProductDependencies = (
 				16545163246ABD67002914D9 /* Alamofire */,
-				0A2B3157247AE02B00010DFF /* SwiftyJSON */,
 			);
 			productName = TaxiApp;
 			productReference = 16FF45A5243B178000FD4F97 /* TaxiApp.app */;
@@ -245,7 +245,6 @@
 			mainGroup = 16FF459C243B178000FD4F97;
 			packageReferences = (
 				16545162246ABD67002914D9 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				0A2B3156247AE02A00010DFF /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = 16FF45A6243B178000FD4F97 /* Products */;
 			projectDirPath = "";
@@ -298,6 +297,7 @@
 				165451722473E808002914D9 /* Endpoint.swift in Sources */,
 				16FF45A9243B178000FD4F97 /* AppDelegate.swift in Sources */,
 				1654516A246ADEAE002914D9 /* User.swift in Sources */,
+				16DDCB53247D171F002582BA /* OrderDetailsViewController.swift in Sources */,
 				16FC211B24406A23002C9315 /* ToastView.swift in Sources */,
 				16D376D624645D3B00CF936F /* Customer.swift in Sources */,
 				16FF45BD243B25E100FD4F97 /* CustomerRegisterViewController.swift in Sources */,
@@ -567,14 +567,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0A2B3156247AE02A00010DFF /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
 		16545162246ABD67002914D9 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -586,11 +578,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0A2B3157247AE02B00010DFF /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0A2B3156247AE02A00010DFF /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
-		};
 		16545163246ABD67002914D9 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 16545162246ABD67002914D9 /* XCRemoteSwiftPackageReference "Alamofire" */;
