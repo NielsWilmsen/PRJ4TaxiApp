@@ -13,6 +13,14 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
     
     var selectedOrder: Order!
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("jow")
+        if(User.getUserEmail() != nil){
+            getOrders()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,7 +38,6 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
             // Get orders with already logged in user
             getOrders()
         }
-        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -46,10 +53,12 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
                 
         let street = (orderArray[indexPath.row]!["pick_up_point"] as! String)
         
-        let range = street.range(of: #"\w+ \d+"#, options: .regularExpression)
-                
-        cell.street.text = String(street[range!])
-        
+        if let range = street.range(of: #"\w+ \d+"#, options: .regularExpression) {
+            cell.street.text = String(street[range])
+        } else {
+            cell.street.text = street
+        }
+                                
         var image: UIImage!
         
         switch orderArray[indexPath.row]!["status"] as! Int {
@@ -84,7 +93,6 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt IndexPath: IndexPath){
-        print(orderArray[IndexPath.row]!["pick_up_point"] as! String)
         
         let order = orderArray[IndexPath.row]!
         let pickup = order["pick_up_point"] as! String
@@ -95,7 +103,7 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
         let fare = order["fare"] as! Int
         let status = order["status"] as! Int
         
-        selectedOrder = Order(pickup, destination, driver, customer, fare, id, status)
+        selectedOrder = Order(pickup, destination, customer, driver, fare, id, status)
         
         performSegue(withIdentifier: "OrderDetails", sender: self)
     }
@@ -142,6 +150,9 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
     
     func onFailure() {
         print("--FAILURE--")
+    }
+    @IBAction func newOrders(_ sender: Any) {
+        performSegue(withIdentifier: "newOrders", sender: self)
     }
     
     @IBAction func Logout(_ sender: Any) {

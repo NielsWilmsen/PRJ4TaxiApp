@@ -17,6 +17,8 @@
 		165451722473E808002914D9 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165451712473E808002914D9 /* Endpoint.swift */; };
 		16BE6B0A243CBE2200879A7C /* DriverRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */; };
 		16CD7237247FD96F006D5258 /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CD7236247FD96F006D5258 /* OrderTableViewCell.swift */; };
+		16CD7239247FED48006D5258 /* DriverNewOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CD7238247FED48006D5258 /* DriverNewOrdersViewController.swift */; };
+		16CD723B247FFF03006D5258 /* AcceptOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CD723A247FFF03006D5258 /* AcceptOrderViewController.swift */; };
 		16D376D424645AAB00CF936F /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D376D324645AAB00CF936F /* Order.swift */; };
 		16D376D624645D3B00CF936F /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D376D524645D3B00CF936F /* Customer.swift */; };
 		16D376D824645F3E00CF936F /* Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D376D724645F3E00CF936F /* Driver.swift */; };
@@ -53,6 +55,8 @@
 		165451712473E808002914D9 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverRegisterViewController.swift; sourceTree = "<group>"; };
 		16CD7236247FD96F006D5258 /* OrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
+		16CD7238247FED48006D5258 /* DriverNewOrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverNewOrdersViewController.swift; sourceTree = "<group>"; };
+		16CD723A247FFF03006D5258 /* AcceptOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptOrderViewController.swift; sourceTree = "<group>"; };
 		16D376D324645AAB00CF936F /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		16D376D524645D3B00CF936F /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		16D376D724645F3E00CF936F /* Driver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
@@ -112,6 +116,7 @@
 		16545166246ADDD4002914D9 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				16CD7238247FED48006D5258 /* DriverNewOrdersViewController.swift */,
 				16D376D9246A90B400CF936F /* ConfirmOrderViewController.swift */,
 				16BE6B09243CBE2200879A7C /* DriverRegisterViewController.swift */,
 				16FF45AC243B178000FD4F97 /* LoginViewController.swift */,
@@ -119,6 +124,7 @@
 				160C9CFC244A006500212123 /* CustomerMainPageViewController.swift */,
 				1654516B246D77EC002914D9 /* DriverMainScreenViewController.swift */,
 				16DDCB52247D171F002582BA /* OrderDetailsViewController.swift */,
+				16CD723A247FFF03006D5258 /* AcceptOrderViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -296,6 +302,7 @@
 				16BE6B0A243CBE2200879A7C /* DriverRegisterViewController.swift in Sources */,
 				16D376D424645AAB00CF936F /* Order.swift in Sources */,
 				16CD7237247FD96F006D5258 /* OrderTableViewCell.swift in Sources */,
+				16CD7239247FED48006D5258 /* DriverNewOrdersViewController.swift in Sources */,
 				16D376D824645F3E00CF936F /* Driver.swift in Sources */,
 				16FF45AD243B178000FD4F97 /* LoginViewController.swift in Sources */,
 				165451722473E808002914D9 /* Endpoint.swift in Sources */,
@@ -306,6 +313,7 @@
 				16D376D624645D3B00CF936F /* Customer.swift in Sources */,
 				16FF45BD243B25E100FD4F97 /* CustomerRegisterViewController.swift in Sources */,
 				160C9CFD244A006500212123 /* CustomerMainPageViewController.swift in Sources */,
+				16CD723B247FFF03006D5258 /* AcceptOrderViewController.swift in Sources */,
 				16D376DA246A90B400CF936F /* ConfirmOrderViewController.swift in Sources */,
 				1654516C246D77EC002914D9 /* DriverMainScreenViewController.swift in Sources */,
 				1613B09324407C7C004C4459 /* ResponseHandler.swift in Sources */,

@@ -12,6 +12,7 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
     //Test purpose
     @IBOutlet var profilePicture: UIImageView!
     let restAPI = RestAPI()
+    var dataImage: Data!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,19 +42,8 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
             print("No image found")
             return
         }
-//
-//        let restAPI = RestAPI()
         
-//        let parameters = [
-//        "fieldname": "file",
-//        "originalname": "samplePhoto.jpg",
-//        "encoding": "7bit",
-//        "mimetype": "image/jpeg",
-//        "size": "16654"] as [String : Any]
-
-        //let dataImage = image.jpegData(compressionQuality: 1.0)
-        
-        //restAPI.upload(dataImage!, "/files")
+        dataImage = image.jpegData(compressionQuality: 1.0)!
     }
     
     @IBAction func register(_ sender: UIButton) {
@@ -78,10 +68,10 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
         
         restAPI.responseData = self
         
-        //change the status in the back-end
-        let parameters = ["first_name": name, "last_name": lastName, "email": email, "password": password, "profile_picture_path": pictureName, "status": "0"] as [String : String]
+        let parameters = ["first_name": name, "last_name": lastName, "email": email, "password": password, "profile_picture_path": pictureName, "status": 0] as [String : Any]
         
         restAPI.post(parameters, Endpoint.CUSTOMERS)
+        restAPI.upload(dataImage, "/files", pictureName)
     }
     
     @objc func dismissKeyboard(){
@@ -97,14 +87,7 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
         
         if(response["image"] != nil){
             let image = response["image"] as? UIImage
-            
-            let myImageView:UIImageView = UIImageView()
-            myImageView.contentMode = UIView.ContentMode.scaleAspectFit
-            myImageView.frame.size.width = 100
-            myImageView.frame.size.height = 100
-//            myImageView.topAnchor 
-            myImageView.image = image
-            view.addSubview(myImageView)
+            profilePicture.image = image
         }
         
         //navigationController?.popToRootViewController(animated: true)

@@ -1,15 +1,14 @@
 import UIKit
 
-class OrderDetailsViewController: UIViewController, ResponseHandler {
-
-    var order: Order?
+class AcceptOrderViewController: UIViewController, ResponseHandler{
     
     @IBOutlet weak var orderNumber: UILabel!
-    @IBOutlet weak var customerEmail: UILabel!
+    @IBOutlet weak var customer: UILabel!
     @IBOutlet weak var pickupPoint: UILabel!
-    @IBOutlet weak var destination: UILabel!
-    @IBOutlet weak var driverEmail: UILabel!
+    @IBOutlet weak var destinationPoint: UILabel!
     @IBOutlet weak var fare: UILabel!
+    
+    var order: Order?
     
     let restAPI = RestAPI()
     
@@ -19,24 +18,25 @@ class OrderDetailsViewController: UIViewController, ResponseHandler {
         restAPI.responseData = self
 
         orderNumber.text = "OrderNumber: \(order!.id!)"
-        customerEmail.text = "Customer: \(order!.customerEmail!)"
+        customer.text = "Customer: \(order!.customerEmail!)"
         pickupPoint.text = "PickupLocation: \(order!.pickup!)"
-        destination.text = "Destination: \(order!.destination!)"
-        driverEmail.text = "Driver: \(order!.driverEmail!)"
+        destinationPoint.text = "Destination: \(order!.destination!)"
         fare.text = "Fare: \(order!.fare!)"
     }
     
-    @IBAction func cancelOrder(_ sender: Any) {
-        var address = Endpoint.CANCELORDER
+    @IBAction func acceptOrder(_ sender: Any) {
+        var address = Endpoint.ACCEPTORDER
         address = address.replacingOccurrences(of: "{id}", with: String(order!.id))
+        address = address.replacingOccurrences(of: "{driverEmail}", with: User.getUserEmail()!)
         restAPI.patch(User.getUserAuthToken()!, address)
     }
     
     func onSuccess(_ response: Dictionary<String, Any>) {
         let endpoint = response["endpoint"] as! String
         
-        var address = Endpoint.CANCELORDER
+        var address = Endpoint.ACCEPTORDER
         address = address.replacingOccurrences(of: "{id}", with: String(order!.id))
+        address = address.replacingOccurrences(of: "{driverEmail}", with: User.getUserEmail()!)
         
         switch endpoint {
         case address:
@@ -46,6 +46,7 @@ class OrderDetailsViewController: UIViewController, ResponseHandler {
     }
     
     func onFailure() {
-        ToastView.shared.long(self.view, txt_msg: "Error! Could not cancel order")
+        ToastView.shared.long(self.view, txt_msg: "Error! Could not accept order")
     }
+    
 }
