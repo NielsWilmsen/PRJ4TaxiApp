@@ -122,16 +122,23 @@ class RestAPI {
 //     }
 //    }
 
-    func upload(_ imageData: Data, _ address: String){
+    func upload(_ imageData: Data, _ address: String, _ profilePicture: String){
         let endPoint: String = urlString + address
-        struct HTTPBinResponse: Decodable { let url: String }
+        
         AF.upload(multipartFormData: { multipartFormData in
-            multipartFormData.append(Data("one".utf8), withName: "one")
-            multipartFormData.append(Data("two".utf8), withName: "two")
-        }, to: endPoint)
-            .responseDecodable(of: HTTPBinResponse.self) { response in
-                debugPrint(response)
-            }
+            multipartFormData.append(imageData, withName: profilePicture, fileName: profilePicture, mimeType: "image/jpg")
+        },  to: endPoint, usingThreshold: UInt64.init(), method: .post)
+        .responseJSON{ response in
+                    switch response.result {
+                    case .success(let JSON):
+                        print("Upload request successful")
+                        var parsedResponse = JSON as! Dictionary<String, Any>
+                        parsedResponse["endpoint"] = response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: "")
+                        self.responseData?.onSuccess(parsedResponse)
+                    case let .failure(error):
+                        print(error)
+                    }
+        }
     }
     
     func download(_ address: String, _ picture: String){

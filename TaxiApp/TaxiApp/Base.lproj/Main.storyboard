@@ -137,7 +137,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LQr-gh-HZC">
-                                <rect key="frame" x="62" y="523" width="250" height="40"/>
+                                <rect key="frame" x="62" y="557" width="250" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="17"/>
@@ -145,14 +145,6 @@
                                 <state key="normal" title="Register"/>
                                 <connections>
                                     <action selector="register:" destination="YIb-IK-7qg" eventType="touchUpInside" id="JS0-4o-yRY"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SWc-fI-tHB">
-                                <rect key="frame" x="139" y="462" width="96" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Take a picture"/>
-                                <connections>
-                                    <action selector="takePicture:" destination="YIb-IK-7qg" eventType="touchUpInside" id="tC5-QG-2rF"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cD9-oQ-sWv">
@@ -183,6 +175,16 @@
                                 <rect key="frame" x="139" y="81" width="96" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SWc-fI-tHB">
+                                <rect key="frame" x="129" y="463" width="116" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <state key="normal" title="Take a photo"/>
+                                <connections>
+                                    <action selector="takePicture:" destination="YIb-IK-7qg" eventType="touchUpInside" id="tC5-QG-2rF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="LNu-PZ-hdk"/>
@@ -193,12 +195,12 @@
                         <outlet property="lastNameText" destination="yfH-vd-ZAX" id="LHn-wk-LQF"/>
                         <outlet property="nameText" destination="cD9-oQ-sWv" id="L7a-r5-10h"/>
                         <outlet property="passwordText" destination="fR9-h4-tyJ" id="a8B-RK-PNo"/>
-                        <outletCollection property="profilePicture" destination="5rE-w0-RsR" collectionClass="NSMutableArray" id="Hjq-Cq-ido"/>
+                        <outlet property="profilePicture" destination="5rE-w0-RsR" id="fQf-bF-XjD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MYO-mr-7kM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1230" y="1101"/>
+            <point key="canvasLocation" x="-1231.2" y="1100.5997001499252"/>
         </scene>
         <!--Driver Register View Controller-->
         <scene sceneID="wiN-ad-lTS">
