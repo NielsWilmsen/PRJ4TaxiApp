@@ -84,6 +84,30 @@ class RestAPI {
                 }
         }
     }
+    
+    func patch(_ authToken: String, _ address: String) {
+        let endPoint: String = urlString + address
+        print("PATCH request to: " + endPoint)
+        let parameters = ["Authorization": "Bearer " + authToken] as HTTPHeaders
+        AF.request(endPoint,
+                   method: .patch,
+                   headers: parameters)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let JSON):
+                    print("Patch request successful")
+                    let NULL = JSON as! NSNull
+                    var parsedResponse: Dictionary<String, Any> = [:]
+                    parsedResponse["endpoint"] = response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: "")
+                    parsedResponse["value"] = NULL
+                    self.responseData?.onSuccess(parsedResponse)
+                case let .failure(error):
+                    debugPrint(error)
+                    self.responseData?.onFailure()
+                }
+        }
+    }
 
 //    func upload(image: Data, to url: Alamofire.URLRequestConvertible, params: [String: Any]) {
 //        AF.upload(multipartFormData: { multiPart in
