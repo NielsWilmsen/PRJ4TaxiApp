@@ -42,10 +42,33 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "OrderRow", for: indexPath)
-        
-        cell.textLabel!.text = (orderArray[indexPath.row]!["pick_up_point"] as! String)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "OrderRow", for: indexPath) as! OrderTableViewCell
                 
+        let street = (orderArray[indexPath.row]!["pick_up_point"] as! String)
+        
+        let range = street.range(of: #"\w+ \d+"#, options: .regularExpression)
+                
+        cell.street.text = String(street[range!])
+        
+        var image: UIImage!
+        
+        switch orderArray[indexPath.row]!["status"] as! Int {
+            case 0:
+                image = UIImage(named: "notAssignedIcon")
+            case 1:
+                image = UIImage(named: "awaitIcon")
+            case 2:
+                image = UIImage(named: "ongoingIcon")
+            case 3:
+                image = UIImage(named: "finishedIcon")
+            case 4:
+                image = UIImage(named: "cancelledIcon")
+        default:
+            image = UIImage(named: "notAssignedIcon")
+        }
+        
+        cell.status.image = image
+        
         return cell
     }
     
@@ -70,8 +93,9 @@ class DriverMainScreenViewController: UIViewController, UITableViewDelegate, UIT
         let driver = order["driver_email"] as! String
         let id = order["ID"] as! Int
         let fare = order["fare"] as! Int
+        let status = order["status"] as! Int
         
-        selectedOrder = Order(pickup, destination, driver, customer, fare, id)
+        selectedOrder = Order(pickup, destination, driver, customer, fare, id, status)
         
         performSegue(withIdentifier: "OrderDetails", sender: self)
     }
