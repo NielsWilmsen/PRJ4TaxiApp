@@ -10,7 +10,6 @@ import UIKit
 
 class OrderTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var street: UILabel!
     @IBOutlet weak var status: UIImageView!
     
