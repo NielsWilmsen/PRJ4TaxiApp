@@ -239,7 +239,7 @@ export class OrderController {
     }
   }
 
-  @secured(SecuredType.HAS_ROLES, ['customer'])
+  @secured(SecuredType.IS_AUTHENTICATED)
   @patch('/orders/cancelOrder/{id}', {
     responses: {
       '204': {

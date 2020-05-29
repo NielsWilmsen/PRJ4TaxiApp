@@ -84,6 +84,30 @@ class RestAPI {
                 }
         }
     }
+    
+    func patch(_ authToken: String, _ address: String) {
+        let endPoint: String = urlString + address
+        print("PATCH request to: " + endPoint)
+        let parameters = ["Authorization": "Bearer " + authToken] as HTTPHeaders
+        AF.request(endPoint,
+                   method: .patch,
+                   headers: parameters)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let JSON):
+                    print("Patch request successful")
+                    let NULL = JSON as! NSNull
+                    var parsedResponse: Dictionary<String, Any> = [:]
+                    parsedResponse["endpoint"] = response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: "")
+                    parsedResponse["value"] = NULL
+                    self.responseData?.onSuccess(parsedResponse)
+                case let .failure(error):
+                    debugPrint(error)
+                    self.responseData?.onFailure()
+                }
+        }
+    }
 
 //    func upload(image: Data, to url: Alamofire.URLRequestConvertible, params: [String: Any]) {
 //        AF.upload(multipartFormData: { multiPart in
@@ -122,16 +146,23 @@ class RestAPI {
 //     }
 //    }
 
-    func upload(_ imageData: Data, _ address: String){
+    func upload(_ imageData: Data, _ address: String, _ profilePicture: String){
         let endPoint: String = urlString + address
-        struct HTTPBinResponse: Decodable { let url: String }
+        
         AF.upload(multipartFormData: { multipartFormData in
-            multipartFormData.append(Data("one".utf8), withName: "one")
-            multipartFormData.append(Data("two".utf8), withName: "two")
-        }, to: endPoint)
-            .responseDecodable(of: HTTPBinResponse.self) { response in
-                debugPrint(response)
-            }
+            multipartFormData.append(imageData, withName: profilePicture, fileName: profilePicture, mimeType: "image/jpg")
+        },  to: endPoint, usingThreshold: UInt64.init(), method: .post)
+        .responseJSON{ response in
+                    switch response.result {
+                    case .success(let JSON):
+                        print("Upload request successful")
+                        var parsedResponse = JSON as! Dictionary<String, Any>
+                        parsedResponse["endpoint"] = response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: "")
+                        self.responseData?.onSuccess(parsedResponse)
+                    case let .failure(error):
+                        print(error)
+                    }
+        }
     }
     
     func download(_ address: String, _ picture: String){
