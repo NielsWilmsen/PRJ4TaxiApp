@@ -38,6 +38,12 @@ export class Customer extends Entity {
   })
   status: number;
 
+  @property({
+    type: 'string',
+    required: true,
+  })
+  dToken: string;
+
   @hasMany(() => Order, {keyTo: 'customer_email'})
   customerOrders: Order[];
 
