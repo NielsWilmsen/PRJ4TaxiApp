@@ -35,13 +35,6 @@ export class Driver extends Entity {
   })
   status: number;
 
-  @property({
-    type: 'string',
-    required: true,
-  })
-  dToken: string;
-
-
   @hasMany(() => Order, {keyTo: 'driver_email'})
   driverOrders: Order[];
 
