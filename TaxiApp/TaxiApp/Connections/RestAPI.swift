@@ -109,43 +109,6 @@ class RestAPI {
         }
     }
 
-//    func upload(image: Data, to url: Alamofire.URLRequestConvertible, params: [String: Any]) {
-//        AF.upload(multipartFormData: { multiPart in
-//            for (key, value) in params {
-//                if let temp = value as? String {
-//                    multiPart.append(temp.data(using: .utf8)!, withName: key)
-//                }
-//                if let temp = value as? Int {
-//                    multiPart.append("\(temp)".data(using: .utf8)!, withName: key)
-//                }
-//                if let temp = value as? NSArray {
-//                    temp.forEach({ element in
-//                        let keyObj = key + "[]"
-//                        if let string = element as? String {
-//                            multiPart.append(string.data(using: .utf8)!, withName: keyObj)
-//                        } else
-//                            if let num = element as? Int {
-//                                let value = "\(num)"
-//                                multiPart.append(value.data(using: .utf8)!, withName: keyObj)
-//                        }
-//                    })
-//                }
-//            }
-//            multiPart.append(image, withName: "file", fileName: "file.jpeg", mimeType: "image/jpeg")
-//        }, with: url)
-//            .responseJSON{ response in
-//            switch response.result {
-//            case .success(let JSON):
-//                print("Uplaod request successful")
-//                var parsedResponse = JSON as! Dictionary<String, Any>
-//                parsedResponse["endpoint"] = response.request!.debugDescription.replacingOccurrences(of: self.urlString, with: "")
-//                self.responseData?.onSuccess(parsedResponse)
-//            case let .failure(error):
-//                print(error)
-//            }
-//     }
-//    }
-
     func upload(_ imageData: Data, _ address: String, _ profilePicture: String){
         let endPoint: String = urlString + address
         
@@ -164,18 +127,18 @@ class RestAPI {
                     }
         }
     }
-    
-    func download(_ address: String, _ picture: String){
-        let endPoint: String = urlString + address + picture
-        AF.download(endPoint).responseData { response in
-            if let data = response.value {
-                let image = UIImage(data: data)!
-                var arrayDictionary: Dictionary<String, Any> = [:]
-                arrayDictionary["image"] = image
-                self.responseData?.onSuccess(arrayDictionary)
-            }
-        }
-    }
+//    
+//    func download(_ address: String, _ picture: String){
+//        let endPoint: String = urlString + address + picture
+//        AF.download(endPoint).responseData { response in
+//            if let data = response.value {
+//                let image = UIImage(data: data)!
+//                var arrayDictionary: Dictionary<String, Any> = [:]
+//                arrayDictionary["image"] = image
+//                self.responseData?.onSuccess(arrayDictionary)
+//            }
+//        }
+//    }
     
 }
 

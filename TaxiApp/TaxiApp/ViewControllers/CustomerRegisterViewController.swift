@@ -19,7 +19,7 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
         
         restAPI.responseData = self
         
-        restAPI.download("/files", "/radu.jpg")
+//        restAPI.download("/files", "/radu.jpg")
         
         // Dismiss the keyboard when a user taps anywhere
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard)))
@@ -62,7 +62,7 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
             return
         }
         
-        print("Performing registering with name: " + name + " " + lastName + ", email: " + email + ", password: " + password + ", picture: " + pictureName + ", status: " + "0")
+        print("Performing registering with name: " + name + " " + lastName + ", email: " + email + ", password: " + password + ", picture: " + pictureName)
         
         let restAPI = RestAPI()
         
@@ -85,10 +85,10 @@ class CustomerRegisterViewController: UIViewController, ResponseHandler,UIImageP
     func onSuccess(_ response: Dictionary<String, Any>) {
         print("---- SUCCESS ----")
         
-        if(response["image"] != nil){
-            let image = response["image"] as? UIImage
-            profilePicture.image = image
-        }
+//        if(response["image"] != nil){
+//            let image = response["image"] as? UIImage
+//            profilePicture.image = image
+//        }
         
         //navigationController?.popToRootViewController(animated: true)
     }
