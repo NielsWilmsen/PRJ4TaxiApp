@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A3F7C662483F32D00E7850E /* CustomerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F7C652483F32D00E7850E /* CustomerTests.swift */; };
 		0AA4C87B2472D95000E09DAB /* TaxiAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA4C87A2472D95000E09DAB /* TaxiAppTests.swift */; };
 		160C9CFD244A006500212123 /* CustomerMainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160C9CFC244A006500212123 /* CustomerMainPageViewController.swift */; };
 		1613B09324407C7C004C4459 /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1613B09224407C7C004C4459 /* ResponseHandler.swift */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		01181030247C00F0002F599F /* TaxiApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TaxiApp.entitlements; sourceTree = "<group>"; };
+		0A3F7C652483F32D00E7850E /* CustomerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerTests.swift; sourceTree = "<group>"; };
 		0AA4C8782472D95000E09DAB /* TaxiAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaxiAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AA4C87A2472D95000E09DAB /* TaxiAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxiAppTests.swift; sourceTree = "<group>"; };
 		0AA4C87C2472D95000E09DAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			children = (
 				0AA4C87A2472D95000E09DAB /* TaxiAppTests.swift */,
 				0AA4C87C2472D95000E09DAB /* Info.plist */,
+				0A3F7C652483F32D00E7850E /* CustomerTests.swift */,
 			);
 			path = TaxiAppTests;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AA4C87B2472D95000E09DAB /* TaxiAppTests.swift in Sources */,
+				0A3F7C662483F32D00E7850E /* CustomerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
