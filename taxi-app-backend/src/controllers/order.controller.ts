@@ -4,7 +4,7 @@ import {Customer, Driver, Order} from '../models';
 import {CustomerRepository, DriverRepository, OrderRepository} from '../repositories';
 import {secured, SecuredType} from '../auth';
 import {DistanceUtils} from '../utils/DistanceUtils';
-
+import {PushNotificationController} from './';
 export class OrderController {
   constructor(
     @repository(OrderRepository)
@@ -13,6 +13,7 @@ export class OrderController {
     public customerRepository: CustomerRepository,
     @repository(DriverRepository)
     public driverRepository: DriverRepository,
+    public pushController: PushNotificationController,
   ) {
   }
 
@@ -41,6 +42,7 @@ export class OrderController {
     const customerToUpdate: Customer = await this.customerRepository.findById(order.customer_email);
     customerToUpdate.status = 1;
     await this.customerRepository.updateById(order.customer_email, customerToUpdate);
+    this.pushController.newOrderNotification();
     return this.orderRepository.create(order);
   }
 
@@ -239,7 +241,7 @@ export class OrderController {
     }
   }
 
-  @secured(SecuredType.HAS_ROLES, ['customer'])
+  @secured(SecuredType.IS_AUTHENTICATED)
   @patch('/orders/cancelOrder/{id}', {
     responses: {
       '204': {

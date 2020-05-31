@@ -3,19 +3,22 @@ import MapKit
 
 class Order {
     
-    var pickup: CLPlacemark!
-    var destination: CLPlacemark!
-    var customer: Customer!
-    var driver: Driver!
+    var id: Int!
+    var pickup: String!
+    var destination: String!
+    var customerEmail: String!
+    var driverEmail: String!
+    var fare: Int!
+    var status: Int!
     
-    init(_ pickup: CLPlacemark, _ destination: CLPlacemark){
+    init(_ pickup: String, _ destination: String, _ customer: String, _ driver: String, _ fare: Int, _ id: Int, _ status: Int){
         self.pickup = pickup
         self.destination = destination
-    }
-    
-    func finalize(_ customer: Customer, _ driver: Driver){
-        self.customer = customer
-        self.driver = driver
+        self.customerEmail = customer
+        self.driverEmail = driver
+        self.id = id
+        self.fare = fare
+        self.status = status
     }
     
 }
