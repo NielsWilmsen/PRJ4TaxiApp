@@ -35,6 +35,11 @@ export class Driver extends Entity {
   })
   status: number;
 
+  @property({
+    type: 'string',
+  })
+  profile_picture_path: string;
+
   @hasMany(() => Order, {keyTo: 'driver_email'})
   driverOrders: Order[];
 
