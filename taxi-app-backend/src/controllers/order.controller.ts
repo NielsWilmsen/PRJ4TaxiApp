@@ -4,7 +4,8 @@ import {Customer, Driver, Order} from '../models';
 import {CustomerRepository, DriverRepository, OrderRepository} from '../repositories';
 import {secured, SecuredType} from '../auth';
 import {DistanceUtils} from '../utils/DistanceUtils';
-import {PushNotificationController} from './';
+import {PushNotificationController} from './push-notification.controller';
+
 export class OrderController {
   constructor(
     @repository(OrderRepository)
@@ -13,11 +14,12 @@ export class OrderController {
     public customerRepository: CustomerRepository,
     @repository(DriverRepository)
     public driverRepository: DriverRepository,
-    public pushController: PushNotificationController,
+    public pushController: PushNotificationController = new PushNotificationController(),
   ) {
   }
 
-  @secured(SecuredType.HAS_ROLES, ['customer'])
+  // @secured(SecuredType.HAS_ROLES, ['customer'])
+  @secured(SecuredType.PERMIT_ALL)
   @post('/orders', {
     responses: {
       '200': {
@@ -237,11 +239,12 @@ export class OrderController {
         await this.orderRepository.updateById(orderToUpdate.ID, orderToUpdate);
       }
     } else {
-      throw new Error("You are too far away from the drop point in order to finish the order")
+      throw new Error('You are too far away from the drop point in order to finish the order');
     }
   }
 
-  @secured(SecuredType.IS_AUTHENTICATED)
+  //@secured(SecuredType.IS_AUTHENTICATED)
+  @secured(SecuredType.PERMIT_ALL)
   @patch('/orders/cancelOrder/{id}', {
     responses: {
       '204': {
@@ -250,7 +253,7 @@ export class OrderController {
     },
   })
   async cancelOrder(
-      @param.path.number('id') id: number,
+    @param.path.number('id') id: number,
   ): Promise<void> {
     const orderToUpdate: Order = await this.orderRepository.findById(id);
     if(orderToUpdate.driver_email == null) {
